@@ -1,7 +1,7 @@
 #ifndef DISCIPLINA_H
 #define DISCIPLINA_H
 
-#include <pessoa.h>
+#include "pessoa.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
@@ -9,10 +9,10 @@
 #include <string.h>
 #include <stdbool.h>
 
-#define MAX 50
+#define MAX_NOME_DISCIPLINA 50
 
 typedef struct disciplina{
-    char nome_disciplina[MAX];
+    char nome_disciplina[MAX_NOME_DISCIPLINA];
     int codigo_disciplina;
     int semestre;
     int vagas;
