@@ -1,7 +1,6 @@
 #ifndef PESSOA_H
 #define PESSOA_H
 
-#include <disciplina.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
@@ -9,9 +8,10 @@
 #include <string.h>
 #include <stdbool.h>
 
+
 #define TAM 3
-#define MAX 256
-#define CPF 16
+#define MAX_NOME_PESSOA 256
+#define CPF 13
 
 typedef struct data{
     int dia, mes, ano;
@@ -22,8 +22,9 @@ typedef struct pessoa{
     data data_nascimento;
     char cpf[CPF];
     char sexo;
-    char nome[MAX];
+    char nome[MAX_NOME_PESSOA];
     int qtd_disciplinas;
+    int ativo;
 } pessoa;
 
 #endif

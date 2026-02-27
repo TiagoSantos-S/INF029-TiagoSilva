@@ -1,10 +1,12 @@
-#include "escola.h"
+#include <windows.h>
+#include "Funcoes/disciplina.h"
+#include "Funcoes/menu.h"
 
 int main(void) {
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
-    Aluno lista_aluno[TAM_ALUNOS];
-    Professor lista_professor[TAM_PROFESSORES]; 
+    pessoa lista_aluno[TAM];
+    pessoa lista_professor[TAM]; 
     int opcao;
     int qtdAluno = 0;
     int qtdProfessor = 0;
@@ -44,7 +46,7 @@ while (!sair){
             case 1:{
                 char nome[256];
                 printf("Casdatrar Aluno\n");
-                if (qtdAluno == TAM_ALUNOS){
+                if (qtdAluno == TAM){
                     printf("Lista de alunos cheia\n"); 
                 }else{
                     printf("Digite a matricula\n");
@@ -58,7 +60,19 @@ while (!sair){
                   break;
                 }
 
+                printf("Informe o sexo no formato M ou F:\n");
+                  char sexo;
+                  scanf("%c", &sexo);
+                  getchar();
+
+                  printf("Informe seu cpf:\n");
+                  char cpf[CPF];
+                  fgets(cpf, CPF, stdin);
+                  cpf[strcspn(cpf, "\n")] = '\0';
+
                 lista_aluno[qtdAluno].matricula = matricula;
+                lista_aluno[qtdAluno].sexo = sexo;
+                strcpy(lista_aluno[qtdAluno].cpf, cpf);
 
                 printf("Informe o nome do aluno:\n");
                 fgets(nome, 256, stdin);
@@ -79,9 +93,12 @@ while (!sair){
                 printf("Lista aluno vazia\n");
               } else{
                 for (int i = 0; i < qtdAluno ; i++){
-                  if (lista_aluno[i].ativo)
+                  if (lista_aluno[i].ativo){
                     printf("Matrícula: %d\n", lista_aluno[i].matricula);
                     printf("Nome do(a) Aluno(a): %s\n", lista_aluno[i].nome);
+                    printf("Sexo do(a) Aluno(a): %c\n", lista_aluno[i].sexo);
+                    printf("CPF do(a) Aluno(a): %s\n", lista_aluno[i].cpf);
+                  }  
                 }  
               }
             }
