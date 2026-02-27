@@ -1,13 +1,9 @@
 #ifndef DISCIPLINA_H
 #define DISCIPLINA_H
 
-#include "pessoa.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <locale.h>
-#include <windows.h>
-#include <string.h>
-#include <stdbool.h>
+#include "professor.h"
+#include "aluno.h"
+
 
 #define MAX_NOME_DISCIPLINA 50
 
@@ -16,8 +12,8 @@ typedef struct disciplina{
     int codigo_disciplina;
     int semestre;
     int vagas;
-    pessoa professor;
-    pessoa *alunos;
+    professor professor;
+    aluno alunos;
     int qtd_alunos;
 } disciplina;
 

@@ -1,23 +1,22 @@
-#ifndef ALUNO_H
-#define ALUNO_H
+#ifndef PROFESSOR_H
+#define PROFESSOR_H
 
 #include "include.h"
 
-typedef struct data_A{
-    int dia, mes, ano;
-} data_A;
 
-typedef struct aluno{
+typedef struct data_P{
+    int dia, mes, ano;
+} data_P;
+
+typedef struct professor{
     int matricula;
-    data_A data_nascimento;
+    data_P data_nascimento;
     char cpf[CPF];
     char sexo;
     char nome[MAX_NOME_PESSOA];
     int qtd_disciplinas;
     int ativo;
-} aluno;
-
-void cadastrarAluno(aluno lista_aluno[], int *qtdAluno);
-
+} professor;
 
 #endif
+
