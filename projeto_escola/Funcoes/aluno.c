@@ -1,13 +1,11 @@
 #include "aluno.h"
 
     void cadastrarAluno(aluno lista_aluno[], int *qtdAluno) {
-    // LIMPA QUALQUER LIXO DO BUFFER
+        
     char cpf[CPF];
-    limpar_buffer();
     char nome[MAX_NOME_PESSOA];
-    limpar_buffer();
     char buffer[50];
-    limpar_buffer();
+
     printf("Cadastrar Aluno\n");
 
     if (*qtdAluno == TAM) {
@@ -30,6 +28,7 @@
     printf("Informe seu cpf:\n");
     fgets(cpf, CPF, stdin);
     cpf[strcspn(cpf, "\n")] = '\0';
+    limpar_buffer();
 
     printf("Informe o nome do aluno:\n");
     fgets(nome, sizeof(nome), stdin);
