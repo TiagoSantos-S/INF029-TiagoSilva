@@ -3,7 +3,6 @@
 
 #include "include.h"
 
-
 typedef struct data_P{
     int dia, mes, ano;
 } data_P;
@@ -17,6 +16,11 @@ typedef struct professor{
     int qtd_disciplinas;
     int ativo;
 } professor;
+
+void cadastrarProfessor(professor listar_professor[], int *qtdProfessor);
+void listarProfessor(professor listar_professor[], int *qtdProfessor);
+void atualizarProfessor(professor listar_professor[], int *qtdProfessor);
+void excluirProfessor(professor listar_professor[], int *qtdProfessor);
 
 #endif
 
