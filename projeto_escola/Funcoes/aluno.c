@@ -65,6 +65,84 @@ void listarAlunos(aluno lista_aluno[], int qtdAluno) {
     }
 }
 
+void atualizarAluno(aluno lista_aluno[], int qtdAluno) {
+
+    if (qtdAluno == 0) {
+    printf("Nenhum aluno cadastrado\n");
+    return;
+    }
+
+
+    printf("Atualizar Aluno\n");
+    printf("Digite a matricula:\n");
+
+    int matricula;
+    scanf("%d", &matricula);
+    limpar_buffer();
+
+    if (matricula < 0) {
+        printf("Matrícula inválida\n");
+        return;
+    }
+
+    int indice = -1;
+
+    // procurar aluno
+    for (int i = 0; i < qtdAluno; i++) {
+        if (lista_aluno[i].matricula == matricula &&
+            lista_aluno[i].ativo) {
+            indice = i;
+            break;
+        }
+    }
+
+    if (indice == -1) {
+        printf("Matrícula não encontrada\n");
+        return;
+    }
+
+    // menu de atualização
+    printf("0 - Voltar\n");
+    printf("1 - Atualizar CPF\n");
+    printf("2 - Atualizar Nome\n");
+
+    int opcao;
+    scanf("%d", &opcao);
+    limpar_buffer();
+
+    switch (opcao) {
+
+        case 0:
+            printf("Voltando...\n");
+            break;
+
+        case 1: {
+            char cpf[CPF];
+            printf("Informe o novo CPF:\n");
+            fgets(cpf, CPF, stdin);
+            cpf[strcspn(cpf, "\n")] = '\0';
+
+            strcpy(lista_aluno[indice].cpf, cpf);
+            printf("CPF atualizado com sucesso\n");
+            break;
+        }
+
+        case 2: {
+            char nome[MAX_NOME_PESSOA];
+            printf("Informe o novo nome:\n");
+            fgets(nome, sizeof(nome), stdin);
+            nome[strcspn(nome, "\n")] = '\0';
+
+            strcpy(lista_aluno[indice].nome, nome);
+            printf("Nome atualizado com sucesso\n");
+            break;
+        }
+
+        default:
+            printf("Opção inválida\n");
+    }
+}
+
 void excluirAluno(aluno lista_aluno[], int *qtdAluno) {
 
     printf("Excluir Aluno\n");
@@ -98,3 +176,4 @@ void excluirAluno(aluno lista_aluno[], int *qtdAluno) {
     else
         printf("Matrícula inexistente\n");
 }
+

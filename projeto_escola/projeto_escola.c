@@ -54,8 +54,8 @@ int main(void) {
                         }
 
                         case 1: {
-                          cadastrarAluno(lista_aluno, &qtdAluno);
-                          break;
+                            cadastrarAluno(lista_aluno, &qtdAluno);
+                            break;
                         }
 
                         case 2: {
@@ -64,7 +64,7 @@ int main(void) {
                         }
 
                         case 3: {
-                            printf("Atualizar Aluno\n");
+                            atualizarAluno(lista_aluno, qtdAluno);
                             break;
                         }
 
@@ -79,17 +79,18 @@ int main(void) {
                         }
                     }
                 }
-
                 break;
             }
 
-            case 2:
+            case 2: {
                 printf("Opção Professor selecionada.\n");
                 break;
+            }
 
-            case 3:
+            case 3: {
                 printf("Opção Disciplina selecionada.\n");
                 break;
+            }
 
             default:
                 printf("Opção inválida. Tente novamente.\n");
