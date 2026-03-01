@@ -18,8 +18,8 @@ typedef struct professor{
 } professor;
 
 void cadastrarProfessor(professor listar_professor[], int *qtdProfessor);
-void listarProfessor(professor listar_professor[], int *qtdProfessor);
-void atualizarProfessor(professor listar_professor[], int *qtdProfessor);
+void listarProfessor(professor listar_professor[], int qtdProfessor);
+void atualizarProfessor(professor listar_professor[], int qtdProfessor);
 void excluirProfessor(professor listar_professor[], int *qtdProfessor);
 
 #endif

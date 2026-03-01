@@ -46,7 +46,7 @@ void cadastrarProfessor(professor listar_professor[], int *qtdProfessor) {
 
 }
 
-void listarProfessor(professor listar_professor[], int *qtdProfessor){
+void listarProfessor(professor listar_professor[], int qtdProfessor){
         printf("Listar Professor\n");
 
     if (qtdProfessor == 0) {
@@ -65,7 +65,7 @@ void listarProfessor(professor listar_professor[], int *qtdProfessor){
     }
 }
 
-void atualizarProfessor(professor listar_professor[], int *qtdProfessor) {
+void atualizarProfessor(professor listar_professor[], int qtdProfessor) {
 
     if (qtdProfessor == 0) {
     printf("Nenhum Professor cadastrado\n");
