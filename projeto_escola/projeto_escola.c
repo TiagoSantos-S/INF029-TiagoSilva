@@ -9,9 +9,11 @@ int main(void) {
     SetConsoleCP(CP_UTF8);
 
     aluno lista_aluno[TAM] = {0};
+    professor lista_professor[TAM] = {0};
 
     int opcao;
     int qtdAluno = 0;
+    int qtdProfessor = 0;
     int sair = false;
 
     while (!sair) {
@@ -21,7 +23,7 @@ int main(void) {
         printf("2 - Professor\n");
         printf("3 - Disciplina\n");
 
-        scanf(" %d", &opcao);
+        scanf("%d", &opcao);
 
         switch (opcao) {
 
@@ -54,8 +56,8 @@ int main(void) {
                         }
 
                         case 1: {
-                            cadastrarAluno(lista_aluno, &qtdAluno);
-                            break;
+                          cadastrarAluno(lista_aluno, &qtdAluno);
+                          break;
                         }
 
                         case 2: {
@@ -64,7 +66,7 @@ int main(void) {
                         }
 
                         case 3: {
-                            atualizarAluno(lista_aluno, qtdAluno);
+                            printf("Atualizar Aluno\n");
                             break;
                         }
 
@@ -79,18 +81,65 @@ int main(void) {
                         }
                     }
                 }
+
                 break;
             }
 
-            case 2: {
-                printf("Opção Professor selecionada.\n");
-                break;
-            }
+            case 2:
+                printf("Módulo Professor\n");
 
-            case 3: {
+                int sairProfessor = false;
+                int opcao_professor;
+
+                while (!sairProfessor) {
+                    printf("0 - Voltar\n");
+                    printf("1 - Casdatrar Professor\n");
+                    printf("2 - Listar Professor\n");
+                    printf("3 - Atualizar Professor\n");
+                    printf("4 - Excluir Professor\n");
+
+                    scanf("%d", &opcao_professor);
+                    limpar_buffer();
+
+                    switch (opcao_professor) {
+
+                        case 0: {
+                            sairProfessor = true;
+                            break;
+                        }
+
+                        case 1: {
+                            cadastrarProfessor(lista_professor, &qtdProfessor);
+                            break;
+                        }
+
+                        case 2: {
+                            listarProfessor(lista_professor, qtdProfessor);
+                            break;
+                        }
+
+                        case 3: {
+                            atualizarProfessor(lista_professor, qtdProfessor);
+                            break;
+                        }
+
+                        case 4: {
+                            excluirProfessor(lista_professor, &qtdProfessor);
+                            break;
+                        }
+
+                        default: {
+                            printf("Opção Inválida\n");
+                            break;
+                        }
+                    }
+                }
+
+                break;
+
+            case 3:
                 printf("Opção Disciplina selecionada.\n");
                 break;
-            }
 
             default:
                 printf("Opção inválida. Tente novamente.\n");
