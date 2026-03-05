@@ -10,10 +10,12 @@ int main(void) {
 
     aluno lista_aluno[TAM] = {0};
     professor lista_professor[TAM] = {0};
+    disciplina lista_disciplina[TAM] = {0};
 
     int opcao;
     int qtdAluno = 0;
     int qtdProfessor = 0;
+    int qtdDisciplina = 0;
     int sair = false;
 
     while (!sair) {
@@ -69,7 +71,7 @@ int main(void) {
                         }
 
                         case 3: {
-                            atualizarAluno(lista_aluno, &qtdAluno);
+                            atualizarAluno(lista_aluno, qtdAluno);
                             break;
                         }
 
@@ -141,8 +143,41 @@ int main(void) {
                 break;
 
             case 3:
-                printf("Opção Disciplina selecionada.\n");
+                printf("Módulo Disciplina\n");
+
+                int sairDisciplina = false;
+                int opcao_disciplina;
+
+                while (!sairDisciplina) {
+                    printf("0 - Voltar\n");
+                    printf("1 - Casdatrar Disciplina\n");
+                    printf("2 - Listar Disciplina sem os dados doss alunos\n");
+                    printf("3 - Listar Disciplina com os dados doss alunos\n");
+
+                    scanf("%d", &opcao_disciplina);
+                    limpar_buffer();
+
+                    switch (opcao_disciplina) {
+
+                        case 0: {
+                            sairDisciplina = true;
+                            break;
+                        }
+
+                        case 1: {
+                          cadastrarDisciplina(lista_disciplina, &qtdDisciplina);
+                          break;
+                        }
+
+                        default: {
+                            printf("Opção Inválida\n");
+                            break;
+                        }
+                    }
+                }
+
                 break;
+
 
             default:
                 printf("Opção inválida. Tente novamente.\n");
