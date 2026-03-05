@@ -1,5 +1,7 @@
 #include "aluno.h"
 
+// CADASTRAR ALUNO //
+
     void cadastrarAluno(aluno lista_aluno[], int *qtdAluno) {
         
     char cpf[CPF];
@@ -45,25 +47,90 @@
     printf("Cadastrado com sucesso\n");
 }
 
-void listarAlunos(aluno lista_aluno[], int qtdAluno) {
-    
-    printf("Listar Aluno\n");
+// menu //
+
+void menuListagem() {
+    printf("\n=== LISTAR ALUNOS ===\n");
+    printf("1 - Ordem Alfabética\n");
+    printf("2 - Ordem por Matrícula\n");
+    printf("3 - Apenas Sexo Feminino\n");
+    printf("4 - Apenas Sexo Masculino\n");
+    printf("Escolha uma opção: ");
+}
+
+// LISTAR ALUNO //
+
+void listarAlunos(aluno lista_aluno[], int qtdAluno, int criterio) {
 
     if (qtdAluno == 0) {
         printf("Lista aluno vazia\n");
-    } else {
-        for (int i = 0; i < qtdAluno; i++) {
-            if (lista_aluno[i].ativo) {
-                printf("--------------- Aluno: %d -------------\n", i + 1);
-                printf("Matrícula: %d\n", lista_aluno[i].matricula);
-                printf("Nome do(a) Aluno(a): %s\n", lista_aluno[i].nome);
-                printf("Sexo do(a) Aluno(a): %c\n", lista_aluno[i].sexo);
-                printf("CPF do(a) Aluno(a): %s\n", lista_aluno[i].cpf);
-                printf("--------------------------------------------\n");
+        return;
+    }
+
+    aluno copia[qtdAluno];
+
+    // Copiando lista
+    for (int i = 0; i < qtdAluno; i++) {
+        copia[i] = lista_aluno[i];
+    }
+
+    // ORDENAÇÃO
+
+    if (criterio == 1) { 
+        // Ordem alfabética
+        for (int i = 0; i < qtdAluno - 1; i++) {
+            for (int j = i + 1; j < qtdAluno; j++) {
+                if (strcmp(copia[i].nome, copia[j].nome) > 0) {
+                    aluno temp = copia[i];
+                    copia[i] = copia[j];
+                    copia[j] = temp;
+                }
             }
         }
     }
+
+    if (criterio == 2) {
+        // Ordem por matrícula
+        for (int i = 0; i < qtdAluno - 1; i++) {
+            for (int j = i + 1; j < qtdAluno; j++) {
+                if (copia[i].matricula > copia[j].matricula) {
+                    aluno temp = copia[i];
+                    copia[i] = copia[j];
+                    copia[j] = temp;
+                }
+            }
+        }
+    }
+
+    // IMPRESSÃO
+
+    int contador = 1;
+
+    for (int i = 0; i < qtdAluno; i++) {
+
+        if (!copia[i].ativo)
+            continue;
+
+        if (criterio == 3 && copia[i].sexo != 'F')
+            continue;
+
+        if (criterio == 4 && copia[i].sexo != 'M')
+            continue;
+
+        printf("--------------- Aluno: %d -------------\n", contador++);
+        printf("Matrícula: %d\n", copia[i].matricula);
+        printf("Nome do(a) Aluno(a): %s\n", copia[i].nome);
+        printf("Sexo do(a) Aluno(a): %c\n", copia[i].sexo);
+        printf("CPF do(a) Aluno(a): %s\n", copia[i].cpf);
+        printf("--------------------------------------------\n");
+    }
+
+    if (contador == 1) {
+        printf("Nenhum aluno encontrado nesse critério.\n");
+    }
 }
+
+    // ATUALIZAR ALUNO //
 
 void atualizarAluno(aluno lista_aluno[], int qtdAluno) {
 
@@ -142,6 +209,8 @@ void atualizarAluno(aluno lista_aluno[], int qtdAluno) {
             printf("Opção inválida\n");
     }
 }
+
+// EXCLUIR ALUNO //
 
 void excluirAluno(aluno lista_aluno[], int *qtdAluno) {
 

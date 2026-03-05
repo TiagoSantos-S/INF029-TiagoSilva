@@ -61,12 +61,15 @@ int main(void) {
                         }
 
                         case 2: {
-                            listarAlunos(lista_aluno, qtdAluno);
+                            menuListagem();
+                            int opcao;
+                            scanf("%d", &opcao);
+                            listarAlunos(lista_aluno, qtdAluno, opcao);
                             break;
                         }
 
                         case 3: {
-                            printf("Atualizar Aluno\n");
+                            atualizarAluno(lista_aluno, &qtdAluno);
                             break;
                         }
 

@@ -18,7 +18,8 @@ typedef struct aluno{
 } aluno;
 
 void cadastrarAluno(aluno lista_aluno[], int *qtdAluno);
-void listarAlunos(aluno lista_aluno[], int qtdAluno);
+void menuListagem();
+void listarAlunos(aluno lista_aluno[], int qtdAluno, int criterio);
 void atualizarAluno(aluno lista_aluno[], int qtdAluno);
 void excluirAluno(aluno lista_aluno[], int *qtdAluno);
 
