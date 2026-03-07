@@ -142,7 +142,7 @@ int main(void) {
 
                 break;
 
-            case 3:
+            case 3:{
                 printf("Módulo Disciplina\n");
 
                 int sairDisciplina = false;
@@ -175,9 +175,9 @@ int main(void) {
                         }
                     }
                 }
+            }
 
-                break;
-
+            break;
 
             default:
                 printf("Opção inválida. Tente novamente.\n");
