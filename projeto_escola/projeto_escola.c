@@ -165,7 +165,7 @@ int main(void) {
                         }
 
                         case 1: {
-                          cadastrarDisciplina(lista_disciplina, &qtdDisciplina);
+                          cadastrarDisciplina(lista_disciplina, &qtdDisciplina, lista_professor, qtdProfessor);
                           break;
                         }
 
