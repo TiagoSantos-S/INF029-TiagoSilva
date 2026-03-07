@@ -90,7 +90,7 @@ int main(void) {
                 break;
             }
 
-            case 2:
+            case 2: {
                 printf("Módulo Professor\n");
 
                 int sairProfessor = false;
@@ -141,8 +141,9 @@ int main(void) {
                 }
 
                 break;
+            }
 
-            case 3:{
+            case 3: {
                 printf("Módulo Disciplina\n");
 
                 int sairDisciplina = false;
@@ -151,8 +152,8 @@ int main(void) {
                 while (!sairDisciplina) {
                     printf("0 - Voltar\n");
                     printf("1 - Casdatrar Disciplina\n");
-                    printf("2 - Listar Disciplina sem os dados doss alunos\n");
-                    printf("3 - Listar Disciplina com os dados doss alunos\n");
+                    printf("2 - Listar Disciplina sem os dados dos alunos\n");
+                    printf("3 - Listar Disciplina com os dados dos alunos\n");
 
                     scanf("%d", &opcao_disciplina);
                     limpar_buffer();
@@ -175,9 +176,9 @@ int main(void) {
                         }
                     }
                 }
-            }
 
-            break;
+                break;
+            }
 
             default:
                 printf("Opção inválida. Tente novamente.\n");
