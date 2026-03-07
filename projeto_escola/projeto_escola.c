@@ -1,6 +1,6 @@
 #include <windows.h>
 #include "Funcoes/disciplina.h"
-#include "Funcoes/menu.h"
+#include "Funcoes/include.h"
 #include "Funcoes/aluno.h"
 #include "Funcoes/professor.h"
 
@@ -156,7 +156,10 @@ int main(void) {
                     printf("2 - Listar Disciplina sem os dados dos alunos\n");
                     printf("3 - Listar Disciplina com os dados dos alunos\n");
 
-                    scanf("%d", &opcao_disciplina);
+                    if (scanf("%d", &opcao_disciplina) != 1) {
+                        limpar_buffer();
+                        continue;
+                    }
                     limpar_buffer();
 
                     switch (opcao_disciplina) {
