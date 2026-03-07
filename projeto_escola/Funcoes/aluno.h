@@ -17,11 +17,14 @@ typedef struct aluno{
     int ativo;
 } aluno;
 
+void lerDataNascimento(aluno lista_aluno[], int indice);
 void cadastrarAluno(aluno lista_aluno[], int *qtdAluno);
 void menuListagem();
 void listarAlunos(aluno lista_aluno[], int qtdAluno, int criterio);
 void atualizarAluno(aluno lista_aluno[], int qtdAluno);
 void excluirAluno(aluno lista_aluno[], int *qtdAluno);
-
+int validarCPF(char cpf[]);
+void limparCPF(char cpfOriginal[], char cpfLimpo[]);
+bool cpfJaExiste(aluno lista_aluno[], int qtdAluno, char cpf[]);
 
 #endif
