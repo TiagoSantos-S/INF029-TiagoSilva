@@ -26,6 +26,7 @@ int main(void) {
         printf("3 - Disciplina\n");
 
         scanf("%d", &opcao);
+        limpar_buffer();
 
         switch (opcao) {
 
@@ -186,4 +187,5 @@ int main(void) {
     }
 
     return 0;
+
 }
