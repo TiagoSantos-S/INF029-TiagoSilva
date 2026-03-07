@@ -17,6 +17,6 @@ typedef struct disciplina{
     int qtd_alunos;
 } disciplina;
 
-void cadastrarDisciplina(disciplina lista_disciplina[], int *qtdDisciplina);
+void cadastrarDisciplina(disciplina lista_disciplinas[], int *qtdDisciplina, professor lista_professores[], int qtdProfessor);
 
 #endif

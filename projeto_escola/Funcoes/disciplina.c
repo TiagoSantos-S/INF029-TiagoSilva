@@ -1,56 +1,54 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include "disciplina.h"
-#include "aluno.h"
-#include "professor.h"
 
-void cadastrarDisciplina(disciplina lista_disciplinas[], int *qtdDisciplina, professor listar_professor[], int *qtdProfessor) {
+void cadastrarDisciplina(disciplina lista_disciplinas[], int *qtdDisciplina, professor lista_professores[], int qtdProfessor) {
     
-    char nome_disciplina[MAX_NOME_DISCIPLINA];
-    char buffer[50];
-    int achou = 0;
-
-    printf("== Cadastrar Disciplina ==\n");
-
-    if(*qtdDisciplina == TAM){
+    if (*qtdDisciplina >= TAM) {
         printf("Lista de Disciplinas cheia\n");
         return;
     }
 
-    printf("Digite o codigo da Disciplina: \n");
+    printf("== Cadastrar Disciplina ==\n");
+
+    printf("Digite o codigo da Disciplina: ");
     scanf("%d", &lista_disciplinas[*qtdDisciplina].codigo_disciplina);
-    if(lista_disciplinas[*qtdDisciplina].codigo_disciplina == 0){
-        printf("Codigo da disciplina Inválida\n");
+    getchar(); 
+
+    if (lista_disciplinas[*qtdDisciplina].codigo_disciplina <= 0) {
+        printf("Codigo da disciplina Invalido\n");
         return;
     }
 
-    printf("Informe o nome da disciplina:\n");
-    fgets(nome_disciplina, sizeof(nome_disciplina), stdin);
-    nome_disciplina[strcspn(nome_disciplina, "\n")] = '\0';
+    printf("Informe o nome da disciplina: ");
+    fgets(lista_disciplinas[*qtdDisciplina].nome_disciplina, MAX_NOME_DISCIPLINA, stdin);
+    lista_disciplinas[*qtdDisciplina].nome_disciplina[strcspn(lista_disciplinas[*qtdDisciplina].nome_disciplina, "\n")] = '\0';
 
-    printf("Informe o semestre da disciplina:\n");
+    printf("Informe o semestre: ");
     scanf("%d", &lista_disciplinas[*qtdDisciplina].semestre);
+    getchar();
 
-    printf("Informe a matricula do professor da disciplina:\n");
-    fgets(buffer, sizeof(buffer), stdin);
-    int matricula = atoi(buffer);
-    if(matricula < 0){
-        printf("Matrícula inválida\n");
-        return;
-    }
+    printf("Informe a matricula do professor: ");
+    int matricula;
+    scanf("%d", &matricula);
+    getchar(); 
 
-    for(int i = 0; i < *qtdProfessor; i++){
-        if(matricula == listar_professor[i].matricula){
-            achou = 1;
+    int achou = -1;
+    for (int i = 0; i < qtdProfessor; i++) {
+        if (matricula == lista_professores[i].matricula) {
+            achou = i;
+            break;
         }
     }
 
-    if(achou == 0){
-        printf("Matricula do Professor não encontrada!");
+    if (achou == -1) {
+        printf("Erro: Professor com matricula %d nao encontrado!\n", matricula);
+        return; 
     } 
 
-    listar_professor[*qtdProfessor].matricula = matricula;
-
+    lista_disciplinas[*qtdDisciplina].professor = lista_professores[achou];
+    
     (*qtdDisciplina)++;
-
-    printf("Disciplina Cadastrada com Sucesso!");
-
+    printf("Disciplina Cadastrada com Sucesso!\n");
 }
