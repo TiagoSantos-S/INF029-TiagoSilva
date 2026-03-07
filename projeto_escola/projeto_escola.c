@@ -67,6 +67,7 @@ int main(void) {
                             menuListagem();
                             int opcao;
                             scanf("%d", &opcao);
+                            limpar_buffer();
                             listarAlunos(lista_aluno, qtdAluno, opcao);
                             break;
                         }
