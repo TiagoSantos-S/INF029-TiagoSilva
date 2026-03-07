@@ -219,6 +219,7 @@ void excluirAluno(aluno lista_aluno[], int *qtdAluno) {
 
     int matricula;
     scanf("%d", &matricula);
+    limpar_buffer();
 
     int achou = 0;
 

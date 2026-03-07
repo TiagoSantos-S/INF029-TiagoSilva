@@ -149,6 +149,7 @@ void excluirProfessor(professor listar_professor[], int *qtdProfessor) {
 
     int matricula;
     scanf("%d", &matricula);
+    limpar_buffer();
 
     int achou = 0;
 
