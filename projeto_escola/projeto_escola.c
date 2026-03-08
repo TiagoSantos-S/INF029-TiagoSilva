@@ -153,9 +153,10 @@ int main(void) {
 
                 while (!sairDisciplina) {
                     printf("0 - Voltar\n");
-                    printf("1 - Casdatrar Disciplina\n");
-                    printf("2 - Listar Disciplina sem os dados dos alunos\n");
-                    printf("3 - Listar Disciplina com os dados dos alunos\n");
+                    printf("1 - Cadastrar Disciplina\n");
+                    printf("2 - Listar Disciplinas\n");
+                    printf("3 - Listar uma Disciplina com os dados dos alunos\n");
+                    printf("4 - Lista de Disciplinas, com nome do professor\nque extrapolam de 40 vagas\n");
 
                     if (scanf("%d", &opcao_disciplina) != 1) {
                         limpar_buffer();
@@ -172,6 +173,11 @@ int main(void) {
 
                         case 1: {
                           cadastrarDisciplina(lista_disciplina, &qtdDisciplina, lista_professor, qtdProfessor);
+                          break;
+                        }
+
+                        case 2: {
+                          listarDisciplinaSemAlunos(lista_disciplina, qtdDisciplina, lista_professor, qtdProfessor);
                           break;
                         }
 
