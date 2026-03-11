@@ -12,6 +12,7 @@ int main(void) {
     professor lista_professor[TAM] = {0};
     disciplina lista_disciplina[TAM] = {0};
 
+    int sequenciaMatricula = 1;
     int opcao;
     int qtdAluno = 0;
     int qtdProfessor = 0;
@@ -59,7 +60,7 @@ int main(void) {
                         }
 
                         case 1: {
-                          cadastrarAluno(lista_aluno, &qtdAluno);
+                          cadastrarAluno(lista_aluno, &qtdAluno, &sequenciaMatricula);
                           break;
                         }
 
