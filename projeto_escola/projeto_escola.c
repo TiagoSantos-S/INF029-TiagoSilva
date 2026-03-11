@@ -12,6 +12,7 @@ int main(void) {
     professor lista_professor[TAM] = {0};
     disciplina lista_disciplina[TAM] = {0};
 
+    int sequenciaMatricula = 1;
     int opcao;
     int qtdAluno = 0;
     int qtdProfessor = 0;
@@ -21,9 +22,9 @@ int main(void) {
     while (!sair) {
         printf("Projeto Escola\n");
         printf("0 - Sair\n");
-        printf("1 - Módulo Aluno\n");
-        printf("2 - Módulo Professor\n");
-        printf("3 - Módulo Disciplina\n");
+        printf("1 - Aluno\n");
+        printf("2 - Professor\n");
+        printf("3 - Disciplina\n");
 
         scanf("%d", &opcao);
         limpar_buffer();
@@ -43,7 +44,7 @@ int main(void) {
 
                 while (!sairAluno) {
                     printf("0 - Voltar\n");
-                    printf("1 - Cadastrar Aluno\n");
+                    printf("1 - Casdatrar Aluno\n");
                     printf("2 - Listar Aluno\n");
                     printf("3 - Atualizar Aluno\n");
                     printf("4 - Excluir Aluno\n");
@@ -59,7 +60,7 @@ int main(void) {
                         }
 
                         case 1: {
-                          cadastrarAluno(lista_aluno, &qtdAluno);
+                          cadastrarAluno(lista_aluno, &qtdAluno, &sequenciaMatricula);
                           break;
                         }
 
@@ -100,7 +101,7 @@ int main(void) {
 
                 while (!sairProfessor) {
                     printf("0 - Voltar\n");
-                    printf("1 - Cadastrar Professor\n");
+                    printf("1 - Casdatrar Professor\n");
                     printf("2 - Listar Professor\n");
                     printf("3 - Atualizar Professor\n");
                     printf("4 - Excluir Professor\n");

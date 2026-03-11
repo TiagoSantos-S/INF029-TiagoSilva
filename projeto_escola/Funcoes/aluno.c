@@ -1,10 +1,26 @@
 #include "aluno.h"
 
-#include "aluno.h"
+
+int pegarAnoAtual() {
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    return tm.tm_year + 1900;
+}
+
+int gerarMatricula(int *sequencia) {
+
+    int ano = pegarAnoAtual();
+
+    int matricula = ano * 1000 + (*sequencia);
+
+    (*sequencia)++;
+
+    return matricula;
+}
 
 // CADASTRAR ALUNO //
 
-void cadastrarAluno(aluno lista_aluno[], int *qtdAluno) {
+void cadastrarAluno(aluno lista_aluno[], int *qtdAluno, int *sequencia) {
 
     char nome[MAX_NOME_PESSOA];
     char buffer[50];
@@ -18,9 +34,9 @@ void cadastrarAluno(aluno lista_aluno[], int *qtdAluno) {
         return;
     }
 
-    printf("Digite a matricula:\n");
-    fgets(buffer, sizeof(buffer), stdin);
-    int matricula = atoi(buffer);
+    int matricula = gerarMatricula(sequencia);
+
+    printf("Matrícula gerada automaticamente: %d\n", matricula);
 
     if (matricula < 0) {
         printf("Matrícula inválida\n");
@@ -376,12 +392,57 @@ bool cpfJaExiste(aluno lista_aluno[], int qtdAluno, char cpf[]) {
     return false;
 }
 
+
 void lerDataNascimento(aluno lista_aluno[], int indice) {
 
-    printf("Informe a data de nascimento no formato D/M/A:\n");
-    scanf("%d/%d/%d",
-          &lista_aluno[indice].data_nascimento.dia,
-          &lista_aluno[indice].data_nascimento.mes,
-          &lista_aluno[indice].data_nascimento.ano);
-    limpar_buffer();
+    int dia, mes, ano;
+
+    while (1) {
+
+        scanf("%d/%d/%d", &dia, &mes, &ano);
+        limpar_buffer();
+
+        if (!validarData(dia, mes, ano)) {
+            printf("Data inválida. Tente novamente.\n");
+            continue;
+        }
+
+        lista_aluno[indice].data_nascimento.dia = dia;
+        lista_aluno[indice].data_nascimento.mes = mes;
+        lista_aluno[indice].data_nascimento.ano = ano;
+
+        break;
+    }
+}
+
+int validarData(int dia, int mes, int ano) {
+
+    if (ano < 1900 || ano > pegarAnoAtual())
+        return 0;
+
+    if (mes < 1 || mes > 12)
+        return 0;
+
+    if (dia < 1 || dia > 31)
+        return 0;
+
+    if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
+        if (dia > 30)
+            return 0;
+    }
+
+    if (mes == 2) {
+
+        int bissexto = (ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0);
+
+        if (bissexto) {
+            if (dia > 29)
+                return 0;
+        } else {
+            if (dia > 28)
+                return 0;
+        }
+    }
+
+    return 1;
 }

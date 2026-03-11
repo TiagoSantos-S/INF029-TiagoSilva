@@ -5,6 +5,8 @@ void cadastrarProfessor(professor listar_professor[], int *qtdProfessor) {
     char cpf[CPF];
     char nome[MAX_NOME_PESSOA];
     char buffer[50];
+    char cpfDigitado[20];
+    char cpfLimpo[12];
 
     printf("== Cadastrar Professor ==\n");
 
@@ -25,10 +27,26 @@ void cadastrarProfessor(professor listar_professor[], int *qtdProfessor) {
     fgets(buffer, sizeof(buffer), stdin);
     char sexo = buffer[0];
 
-    printf("Informe o seu CPF: \n");
-    fgets(cpf, CPF, stdin);
-    cpf[strcspn(cpf, "\n")] = '\0';
-    limpar_buffer();
+    while (1) {
+
+    printf("Informe o CPF:\n");
+    fgets(cpfDigitado, sizeof(cpfDigitado), stdin);
+    cpfDigitado[strcspn(cpfDigitado, "\n")] = '\0';
+
+    limparCPF(cpfDigitado, cpfLimpo);
+
+    //if (!validarCPF(cpfLimpo)) {
+       // printf("CPF invalido\n");
+       // continue;//
+    //}//
+
+    if (cpfJaExiste(listar_professor, *qtdProfessor, cpfLimpo)) {
+        printf("CPF ja cadastrado\n");
+        continue;
+    }
+
+    break;
+    }   
 
     printf("Informe o nome completo do professor: \n");
     fgets(nome, sizeof(nome), stdin);
