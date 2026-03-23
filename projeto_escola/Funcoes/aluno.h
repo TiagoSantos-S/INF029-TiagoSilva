@@ -31,6 +31,6 @@ void excluirAluno(aluno lista_aluno[], int *qtdAluno);
 
 int validarCPF(char cpf[]);
 void limparCPF(char cpfOriginal[], char cpfLimpo[]);
-bool cpfJaExiste(aluno lista_aluno[], int qtdAluno, char cpf[]);
+bool cpfAlunoJaExiste(aluno lista_aluno[], int qtdAluno, char cpf[]);
 
 #endif

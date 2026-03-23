@@ -21,14 +21,14 @@ typedef struct professor{
 int gerarMatricula(int *sequencia);
 int pegarAnoAtual();
 
-void cadastrarProfessor(professor listar_professor[], int *qtdProfessor);
+void cadastrarProfessor(professor listar_professor[], int *qtdProfessor, int *sequencia);
 void listarProfessor(professor listar_professor[], int qtdProfessor);
 void atualizarProfessor(professor listar_professor[], int qtdProfessor);
 void excluirProfessor(professor listar_professor[], int *qtdProfessor);
 
 int validarCPF(char cpf[]);
 void limparCPF(char cpfOriginal[], char cpfLimpo[]);
-bool cpfJaExiste(professor listar_professor[], int qtdProfessor, char cpf[]);
+bool cpfProfessorJaExiste(professor listar_professor[], int qtdProfessor, char cpf[]);
 
 #endif
 

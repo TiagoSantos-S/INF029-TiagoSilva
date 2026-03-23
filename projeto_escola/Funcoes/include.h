@@ -3,6 +3,10 @@
 #include <locale.h>
 #include <string.h>
 #include <stdbool.h>
+#include "time.h"
+
+#include "aluno.h"
+#include "professor.h"
 
 ///professor.h//
 
@@ -11,3 +15,11 @@
 #define CPF 15
 
 void limpar_buffer();
+
+int gerarMatricula(int *sequencia);
+int pegarAnoAtual();
+
+int validarCPF(char cpf[]);
+void limparCPF(char cpfOriginal[], char cpfLimpo[]);
+bool cpfAlunoJaExiste(aluno lista_aluno[], int qtdAluno, char cpf[]);
+bool cpfProfessorJaExiste(professor lista_professor[], int qtdProfessor, char cpf[]);
