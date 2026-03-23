@@ -4,7 +4,6 @@
 
 void cadastrarProfessor(professor listar_professor[], int *qtdProfessor, int *sequencia) {
 
-    char cpf[CPF];
     char nome[MAX_NOME_PESSOA];
     char buffer[50];
     char cpfDigitado[20];
@@ -72,14 +71,16 @@ void cadastrarProfessor(professor listar_professor[], int *qtdProfessor, int *se
 // Listar Professor //
 
 void listarProfessor(professor listar_professor[], int qtdProfessor){
-        printf("\n========== Listar Professor ==========\n");
+    printf("\n========== Listar Professor ==========\n");
+
+    int contador = 1;
 
     if (qtdProfessor == 0) {
         printf("Lista do Professor vazia\n");
     } else {
         for (int i = 0; i < qtdProfessor; i++) {
             if (listar_professor[i].ativo) {
-                printf("--------------- Professor: %d -------------\n", i + 1);
+                printf("--------------- Professor: %d -------------\n", contador++);
                 printf("Matrícula: %d\n", listar_professor[i].matricula);
                 printf("Nome do(a) Professor(a): %s\n", listar_professor[i].nome);
                 printf("Sexo do(a) Professor(a): %c\n", listar_professor[i].sexo);
