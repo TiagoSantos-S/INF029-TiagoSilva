@@ -191,6 +191,16 @@ int main(void) {
                           break;
                         }
 
+                        case 5: {
+                          listaDisciplinaComDadosAlunos(lista_disciplina, qtdDisciplina, lista_aluno, qtdAluno);
+                          break;
+                        }
+
+                        case 6: {
+                          listaDisciplinasExtrapolam40Vagas(lista_disciplina, qtdDisciplina);
+                          break;
+                        }
+
                         default: {
                             printf("Opção Inválida\n");
                             break;
