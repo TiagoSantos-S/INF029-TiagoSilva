@@ -1,6 +1,8 @@
 #include "professor.h"
 
-void cadastrarProfessor(professor listar_professor[], int *qtdProfessor) {
+// Casdastrar Professor //
+
+void cadastrarProfessor(professor listar_professor[], int *qtdProfessor, int *sequencia) {
 
     char cpf[CPF];
     char nome[MAX_NOME_PESSOA];
@@ -8,21 +10,22 @@ void cadastrarProfessor(professor listar_professor[], int *qtdProfessor) {
     char cpfDigitado[20];
     char cpfLimpo[12];
 
-    printf("== Cadastrar Professor ==\n");
+    printf("=== Cadastrar Professor ===\n");
 
     if(*qtdProfessor == TAM){
         printf("Lista de professores cheia!\n");
         return;
     }
 
-    printf("Informe a matrícula:\n");
-    fgets(buffer, sizeof(buffer), stdin);
-    int matricula = atoi(buffer);
-    if(matricula < 0){
+    int matricula = gerarMatricula(qtdProfessor);
+
+    printf("Matrícula do professor gerada automaticamente: %d\n", matricula);
+    
+    if (matricula < 0) {
         printf("Matrícula inválida\n");
         return;
     }
-    
+
     printf("Informe o sexo (M/F): \n");
     fgets(buffer, sizeof(buffer), stdin);
     char sexo = buffer[0];
@@ -35,12 +38,12 @@ void cadastrarProfessor(professor listar_professor[], int *qtdProfessor) {
 
     limparCPF(cpfDigitado, cpfLimpo);
 
-    //if (!validarCPF(cpfLimpo)) {
-       // printf("CPF invalido\n");
-       // continue;//
-    //}//
+    if (!validarCPF(cpfLimpo)) {
+       printf("CPF invalido\n");
+       continue;
+    }
 
-    if (cpfJaExiste(listar_professor, *qtdProfessor, cpfLimpo)) {
+    if (cpfProfessorJaExiste(listar_professor, *qtdProfessor, cpfLimpo)) {
         printf("CPF ja cadastrado\n");
         continue;
     }
@@ -60,12 +63,14 @@ void cadastrarProfessor(professor listar_professor[], int *qtdProfessor) {
 
     (*qtdProfessor)++;
 
-    printf("Professor Cadastrado com Sucesso!");
+    printf("Professor Cadastrado com Sucesso!\n");
 
 }
 
+// Listar Professor //
+
 void listarProfessor(professor listar_professor[], int qtdProfessor){
-        printf("Listar Professor\n");
+        printf("=== Listar Professor ===\n");
 
     if (qtdProfessor == 0) {
         printf("Lista do Professor vazia\n");
@@ -83,6 +88,8 @@ void listarProfessor(professor listar_professor[], int qtdProfessor){
     }
 }
 
+// Atualizar Professor //
+
 void atualizarProfessor(professor listar_professor[], int qtdProfessor) {
 
     if (qtdProfessor == 0) {
@@ -90,7 +97,7 @@ void atualizarProfessor(professor listar_professor[], int qtdProfessor) {
     return;
     }
 
-    printf("Atualizar Professor\n");
+    printf("=== Atualizar Professor ===\n");
     printf("Digite a matricula:\n");
 
     int matricula;
@@ -104,7 +111,7 @@ void atualizarProfessor(professor listar_professor[], int qtdProfessor) {
 
     int indice = -1;
 
-    // procurar professor
+    // procurar professor //
     for (int i = 0; i < qtdProfessor; i++) {
         if (listar_professor[i].matricula == matricula &&
             listar_professor[i].ativo) {
@@ -118,7 +125,7 @@ void atualizarProfessor(professor listar_professor[], int qtdProfessor) {
         return;
     }
 
-    // menu de atualização
+    // menu de atualização //
     printf("0 - Voltar\n");
     printf("1 - Atualizar CPF\n");
     printf("2 - Atualizar Nome\n");
@@ -160,9 +167,11 @@ void atualizarProfessor(professor listar_professor[], int qtdProfessor) {
     }
 }
 
+// Excluir Professor //
+
 void excluirProfessor(professor listar_professor[], int *qtdProfessor) {
 
-    printf("Excluir Professor\n");
+    printf("=== Excluir Professor ===\n");
     printf("Digite a matricula\n");
 
     int matricula;
@@ -193,4 +202,17 @@ void excluirProfessor(professor listar_professor[], int *qtdProfessor) {
         printf("Professor excluído com sucesso\n");
     else
         printf("Matrícula inexistente\n");
+}
+
+bool cpfProfessorJaExiste(professor lista_professor[], int qtdProfessor, char cpf[]) {
+
+    for (int i = 0; i < qtdProfessor; i++) {
+
+        if (lista_professor[i].ativo && strcmp(lista_professor[i].cpf, cpf) == 0) {
+            return true;
+        }
+
+    }
+
+    return false;
 }

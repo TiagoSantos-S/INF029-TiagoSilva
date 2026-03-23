@@ -1,18 +1,15 @@
-#include <windows.h>
 #include "Funcoes/disciplina.h"
 #include "Funcoes/include.h"
 #include "Funcoes/aluno.h"
 #include "Funcoes/professor.h"
 
 int main(void) {
-    SetConsoleOutputCP(CP_UTF8);
-    SetConsoleCP(CP_UTF8);
-
     aluno lista_aluno[TAM] = {0};
     professor lista_professor[TAM] = {0};
     disciplina lista_disciplina[TAM] = {0};
 
     int sequenciaMatricula = 1;
+    int sequenciaMatriculaProfessor = 1;
     int opcao;
     int qtdAluno = 0;
     int qtdProfessor = 0;
@@ -117,7 +114,7 @@ int main(void) {
                         }
 
                         case 1: {
-                            cadastrarProfessor(lista_professor, &qtdProfessor);
+                            cadastrarProfessor(lista_professor, &qtdProfessor, &sequenciaMatriculaProfessor);
                             break;
                         }
 
@@ -159,7 +156,7 @@ int main(void) {
                     printf("3 - Inserir aluno em uma disciplina\n");
                     printf("4 - Excluir aluno de uma disciplina\n");
                     printf("5 - Listar uma Disciplina com os dados dos alunos\n");
-                    printf("6 - Lista de Disciplinas que extrapolam de 40 vagas\n");
+                    printf("6 - Lista de Disciplinas que extrapolam mais de 40 vagas\n");
 
                     if (scanf("%d", &opcao_disciplina) != 1) {
                         limpar_buffer();
@@ -191,6 +188,16 @@ int main(void) {
 
                         case 4: {
                           excluirAlunosDisciplina(lista_disciplina, &qtdDisciplina, lista_aluno, &qtdAluno);
+                          break;
+                        }
+
+                        case 5: {
+                          listaDisciplinaComDadosAlunos(lista_disciplina, qtdDisciplina, lista_aluno, qtdAluno);
+                          break;
+                        }
+
+                        case 6: {
+                          listaDisciplinasExtrapolam40Vagas(lista_disciplina, qtdDisciplina);
                           break;
                         }
 

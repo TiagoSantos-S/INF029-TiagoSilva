@@ -2,6 +2,7 @@
 #define PROFESSOR_H
 
 #include "include.h"
+#include <time.h>
 
 typedef struct data_P{
     int dia, mes, ano;
@@ -17,10 +18,17 @@ typedef struct professor{
     int ativo;
 } professor;
 
-void cadastrarProfessor(professor listar_professor[], int *qtdProfessor);
+int gerarMatricula(int *sequencia);
+int pegarAnoAtual();
+
+void cadastrarProfessor(professor listar_professor[], int *qtdProfessor, int *sequencia);
 void listarProfessor(professor listar_professor[], int qtdProfessor);
 void atualizarProfessor(professor listar_professor[], int qtdProfessor);
 void excluirProfessor(professor listar_professor[], int *qtdProfessor);
+
+int validarCPF(char cpf[]);
+void limparCPF(char cpfOriginal[], char cpfLimpo[]);
+bool cpfProfessorJaExiste(professor listar_professor[], int qtdProfessor, char cpf[]);
 
 #endif
 
