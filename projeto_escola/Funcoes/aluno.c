@@ -27,7 +27,7 @@ void cadastrarAluno(aluno lista_aluno[], int *qtdAluno, int *sequencia) {
     char cpfDigitado[20];
     char cpfLimpo[12];
 
-    printf("Cadastrar Aluno\n");
+    printf("=== Cadastrar Aluno ===\n");
 
     if (*qtdAluno == TAM) {
         printf("Lista de alunos cheia\n");
@@ -68,7 +68,7 @@ void cadastrarAluno(aluno lista_aluno[], int *qtdAluno, int *sequencia) {
     break;
     }   
 
-    printf("Informe o nome do aluno:\n");
+    printf("Informe o nome completo do aluno:\n");
     fgets(nome, sizeof(nome), stdin);
     nome[strcspn(nome, "\n")] = '\0';
 
@@ -180,7 +180,7 @@ void atualizarAluno(aluno lista_aluno[], int qtdAluno) {
     }
 
 
-    printf("Atualizar Aluno\n");
+    printf("=== Atualizar Aluno ===\n");
     printf("Digite a matricula:\n");
 
     int matricula;
@@ -263,7 +263,7 @@ void atualizarAluno(aluno lista_aluno[], int qtdAluno) {
 
 void excluirAluno(aluno lista_aluno[], int *qtdAluno) {
 
-    printf("Excluir Aluno\n");
+    printf("=== Excluir Aluno ===\n");
     printf("Digite a matricula\n");
 
     int matricula;

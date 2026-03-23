@@ -1,5 +1,24 @@
 #include "professor.h"
 
+int pegarAnoAtual() {
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    return tm.tm_year + 1900;
+}
+
+int gerarMatricula(int *sequencia) {
+
+    int ano = pegarAnoAtual();
+
+    int matricula = ano * 1005 + (*sequencia);
+
+    (*sequencia)++;
+
+    return matricula;
+}
+
+// Casdastrar Professor //
+
 void cadastrarProfessor(professor listar_professor[], int *qtdProfessor) {
 
     char cpf[CPF];
@@ -8,21 +27,22 @@ void cadastrarProfessor(professor listar_professor[], int *qtdProfessor) {
     char cpfDigitado[20];
     char cpfLimpo[12];
 
-    printf("== Cadastrar Professor ==\n");
+    printf("=== Cadastrar Professor ===\n");
 
     if(*qtdProfessor == TAM){
         printf("Lista de professores cheia!\n");
         return;
     }
 
-    printf("Informe a matrícula:\n");
-    fgets(buffer, sizeof(buffer), stdin);
-    int matricula = atoi(buffer);
-    if(matricula < 0){
+    int matricula = gerarMatricula(qtdProfessor);
+
+    printf("Matrícula do professor gerada automaticamente: %d\n", matricula);
+    
+    if (matricula < 0) {
         printf("Matrícula inválida\n");
         return;
     }
-    
+
     printf("Informe o sexo (M/F): \n");
     fgets(buffer, sizeof(buffer), stdin);
     char sexo = buffer[0];
@@ -35,10 +55,10 @@ void cadastrarProfessor(professor listar_professor[], int *qtdProfessor) {
 
     limparCPF(cpfDigitado, cpfLimpo);
 
-    //if (!validarCPF(cpfLimpo)) {
-       // printf("CPF invalido\n");
-       // continue;//
-    //}//
+    if (!validarCPF(cpfLimpo)) {
+       printf("CPF invalido\n");
+       continue;
+    }
 
     if (cpfJaExiste(listar_professor, *qtdProfessor, cpfLimpo)) {
         printf("CPF ja cadastrado\n");
@@ -60,12 +80,14 @@ void cadastrarProfessor(professor listar_professor[], int *qtdProfessor) {
 
     (*qtdProfessor)++;
 
-    printf("Professor Cadastrado com Sucesso!");
+    printf("Professor Cadastrado com Sucesso!\n");
 
 }
 
+// Listar Professor //
+
 void listarProfessor(professor listar_professor[], int qtdProfessor){
-        printf("Listar Professor\n");
+        printf("=== Listar Professor ===\n");
 
     if (qtdProfessor == 0) {
         printf("Lista do Professor vazia\n");
@@ -83,6 +105,8 @@ void listarProfessor(professor listar_professor[], int qtdProfessor){
     }
 }
 
+// Atualizar Professor //
+
 void atualizarProfessor(professor listar_professor[], int qtdProfessor) {
 
     if (qtdProfessor == 0) {
@@ -90,7 +114,7 @@ void atualizarProfessor(professor listar_professor[], int qtdProfessor) {
     return;
     }
 
-    printf("Atualizar Professor\n");
+    printf("=== Atualizar Professor ===\n");
     printf("Digite a matricula:\n");
 
     int matricula;
@@ -104,7 +128,7 @@ void atualizarProfessor(professor listar_professor[], int qtdProfessor) {
 
     int indice = -1;
 
-    // procurar professor
+    // procurar professor //
     for (int i = 0; i < qtdProfessor; i++) {
         if (listar_professor[i].matricula == matricula &&
             listar_professor[i].ativo) {
@@ -118,7 +142,7 @@ void atualizarProfessor(professor listar_professor[], int qtdProfessor) {
         return;
     }
 
-    // menu de atualização
+    // menu de atualização //
     printf("0 - Voltar\n");
     printf("1 - Atualizar CPF\n");
     printf("2 - Atualizar Nome\n");
@@ -160,9 +184,11 @@ void atualizarProfessor(professor listar_professor[], int qtdProfessor) {
     }
 }
 
+// Excluir Professor //
+
 void excluirProfessor(professor listar_professor[], int *qtdProfessor) {
 
-    printf("Excluir Professor\n");
+    printf("=== Excluir Professor ===\n");
     printf("Digite a matricula\n");
 
     int matricula;
@@ -193,4 +219,100 @@ void excluirProfessor(professor listar_professor[], int *qtdProfessor) {
         printf("Professor excluído com sucesso\n");
     else
         printf("Matrícula inexistente\n");
+}
+
+// Funções auxiliares //
+
+void limparCPF(char cpfOriginal[], char cpfLimpo[]) {
+
+    int j = 0;
+
+    for (int i = 0; cpfOriginal[i] != '\0'; i++) {
+
+        if (cpfOriginal[i] >= '0' && cpfOriginal[i] <= '9') {
+            cpfLimpo[j] = cpfOriginal[i];
+            j++;
+        }
+
+    }
+
+    cpfLimpo[j] = '\0';
+}
+
+// 
+
+int validarCPF(char cpf[]) {
+
+    // CPF precisa ter 11 dígitos
+    if (strlen(cpf) != 11)
+        return 0;
+
+    // Verifica se todos os números são iguais (ex: 11111111111)
+    int iguais = 1;
+
+    for (int i = 1; i < 11; i++) {
+        if (cpf[i] != cpf[0]) {
+            iguais = 0;
+            break;
+        }
+    }
+
+    if (iguais)
+        return 0;
+
+    int soma = 0;
+    int resto;
+
+    // Cálculo do primeiro dígito verificador
+    for (int i = 0; i < 9; i++) {
+        soma += (cpf[i] - '0') * (10 - i);
+    }
+
+    resto = soma % 11;
+
+    int dig1;
+
+    if (resto < 2)
+        dig1 = 0;
+    else
+        dig1 = 11 - resto;
+
+    // Confere o primeiro dígito
+    if (dig1 != (cpf[9] - '0'))
+        return 0;
+
+    // Cálculo do segundo dígito verificador
+    soma = 0;
+
+    for (int i = 0; i < 10; i++) {
+        soma += (cpf[i] - '0') * (11 - i);
+    }
+
+    resto = soma % 11;
+
+    int dig2;
+
+    if (resto < 2)
+        dig2 = 0;
+    else
+        dig2 = 11 - resto;
+
+    // Confere o segundo dígito
+    if (dig2 != (cpf[10] - '0'))
+        return 0;
+
+    return 1;
+}
+
+bool cpfJaExiste(professor lista_professor[], int qtdProfessor, char cpf[]) {
+
+    for (int i = 0; i < qtdProfessor; i++) {
+
+        if (lista_professor[i].ativo && strcmp(lista_professor[i].cpf, cpf) == 0) {
+            return true;
+        }
+
+    }
+
+    return false;
 }

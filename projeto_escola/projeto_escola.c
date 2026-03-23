@@ -155,7 +155,7 @@ int main(void) {
                     printf("3 - Inserir aluno em uma disciplina\n");
                     printf("4 - Excluir aluno de uma disciplina\n");
                     printf("5 - Listar uma Disciplina com os dados dos alunos\n");
-                    printf("6 - Lista de Disciplinas que extrapolam de 40 vagas\n");
+                    printf("6 - Lista de Disciplinas que extrapolam mais de 40 vagas\n");
 
                     if (scanf("%d", &opcao_disciplina) != 1) {
                         limpar_buffer();

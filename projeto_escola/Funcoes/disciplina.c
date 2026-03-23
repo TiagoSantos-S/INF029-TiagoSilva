@@ -1,5 +1,7 @@
 #include "disciplina.h"
 
+// Cadastrar Disciplina //
+
 void cadastrarDisciplina(disciplina lista_disciplinas[], int *qtdDisciplina, professor lista_professores[], int qtdProfessor) {
     
     if (*qtdDisciplina >= TAM) {
@@ -7,7 +9,7 @@ void cadastrarDisciplina(disciplina lista_disciplinas[], int *qtdDisciplina, pro
         return;
     }
 
-    printf("== Cadastrar Disciplina ==\n");
+    printf("=== Cadastrar Disciplina ===\n");
 
     printf("Digite o codigo da Disciplina: ");
     scanf("%d", &lista_disciplinas[*qtdDisciplina].codigo_disciplina);
@@ -54,6 +56,8 @@ void cadastrarDisciplina(disciplina lista_disciplinas[], int *qtdDisciplina, pro
     printf("\nDisciplina Cadastrada com Sucesso!\n");
 }
 
+// Listar Disciplinas sem dados dos alunos //
+
 void listaDisciplinaSemDadosAlunos(disciplina lista_disciplinas[], int qtdDisciplina, professor lista_professores[], int qtdProfessor) {
     
     if(qtdDisciplina == 0) {
@@ -80,6 +84,8 @@ void listaDisciplinaSemDadosAlunos(disciplina lista_disciplinas[], int qtdDiscip
     }
 
 }
+
+// Inserir aluno em uma disciplina //
 
 void cadastrarAlunosDisciplina(disciplina lista_disciplinas[], int *qtdDisciplina, aluno lista_aluno[], int *qtdAluno) {   
     printf("=== Cadastrar Aluno em uma Disciplina ===\n");
@@ -138,6 +144,8 @@ void cadastrarAlunosDisciplina(disciplina lista_disciplinas[], int *qtdDisciplin
     printf("Aluno Cadastrado na Disciplina com Sucesso!\n");
     
 }
+
+// Excluir aluno de uma disciplina //
 
 void excluirAlunosDisciplina(disciplina lista_disciplinas[], int *qtdDisciplina, aluno lista_aluno[], int *qtdAluno) {   
     printf("=== Excluir Aluno de uma Disciplina ===\n");
@@ -208,10 +216,74 @@ void excluirAlunosDisciplina(disciplina lista_disciplinas[], int *qtdDisciplina,
 
 }
 
+// Listar uma Disciplina com os dados dos alunos //
+
 void listaDisciplinaComDadosAlunos(disciplina lista_disciplinas[], int qtdDisciplina, aluno lista_aluno[], int qtdAluno) {   
+
+    if(qtdDisciplina == 0) {
+        printf("Lista Disciplina vazia\n");
+        return;
+    }
+
+    printf("Digite o codigo da disciplina: \n");
+    int codigo_disciplina = 0;
+    scanf("%d", &codigo_disciplina);
+    limpar_buffer();
+
+    if (codigo_disciplina <= 0) {
+        printf("Codigo da disciplina Invalido\n");
+        return;
+    }
+
+    int achou = -1;
+    for(int i = 0; i < qtdDisciplina; i++){
+        if(codigo_disciplina == lista_disciplinas[i].codigo_disciplina){
+            achou = i;
+            break;
+        }
+    }
+
+    if(achou == -1){
+        printf("Erro: Disciplina com matricula %d não encontrado!\n", codigo_disciplina);
+        return; 
+    }
+
+    int contador = 1;
+
+    if(lista_disciplinas[achou].codigo_disciplina == codigo_disciplina){
+        printf("--------------- Disciplina: %d -------------\n", contador++);
+        printf("Codigo da Disciplina: %d\n", lista_disciplinas[achou].codigo_disciplina);
+        printf("Nome da Disciplina: %s\n", lista_disciplinas[achou].nome_disciplina);
+        printf("Professor(a) da Disciplina: %s\n", lista_disciplinas[achou].professor.nome);
+        for(int j = 0; j < qtdAluno; j++){
+            if(lista_disciplinas[achou].alunos.matricula == lista_aluno[j].matricula){
+                printf("Matrícula do Aluno: %d\n", lista_aluno[j].matricula);
+            }
+        }
+        printf("--------------------------------------------\n");
+    }
 
 }
 
-void disciplina40vagas(disciplina lista_disciplinas[], int qtdDisciplina, aluno lista_aluno[], int qtdAluno, professor lista_professor[], int qtdProfessor) {   
+// Lista de Disciplinas que extrapolam 40 vagas //
 
+void listaDisciplinaExtrapolam40vagas(disciplina lista_disciplinas[], int qtdDisciplina, aluno lista_aluno[], int qtdAluno, professor lista_professor[], int qtdProfessor) {   
+    if(qtdDisciplina == 0) {
+        printf("Lista Disciplina vazia\n");
+        return;
+    }
+
+    int contador = 1;
+
+    for(int i = 0; i < qtdDisciplina; i++){
+        if(lista_disciplinas[i].vagas > 40){
+            printf("--------------- Disciplina: %d -------------\n", contador++);
+            printf("Codigo da Disciplina: %d\n", lista_disciplinas[i].codigo_disciplina);
+            printf("Nome da Disciplina: %s\n", lista_disciplinas[i].nome_disciplina);
+            printf("Semestre da Disciplina: %d\n", lista_disciplinas[i].semestre);
+            printf("Vagas da Disciplina: %d\n", lista_disciplinas[i].vagas);
+            printf("Professor(a) da Disciplina: %s\n", lista_disciplinas[i].professor.nome);
+            printf("--------------------------------------------\n");
+        }
+    }
 }
