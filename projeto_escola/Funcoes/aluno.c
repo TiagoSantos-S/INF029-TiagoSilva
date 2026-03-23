@@ -278,6 +278,19 @@ void excluirAluno(aluno lista_aluno[], int *qtdAluno) {
         printf("Matrícula inexistente\n");
 }
 
+bool cpfAlunoJaExiste(aluno lista_aluno[], int qtdAluno, char cpf[]) {
+
+    for (int i = 0; i < qtdAluno; i++) {
+
+        if (lista_aluno[i].ativo && strcmp(lista_aluno[i].cpf, cpf) == 0) {
+            return true;
+        }
+
+    }
+
+    return false;
+}
+
 void lerDataNascimento(aluno lista_aluno[], int indice) {
 
     int dia, mes, ano;

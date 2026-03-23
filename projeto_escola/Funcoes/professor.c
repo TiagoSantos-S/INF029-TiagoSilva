@@ -203,3 +203,16 @@ void excluirProfessor(professor listar_professor[], int *qtdProfessor) {
     else
         printf("Matrícula inexistente\n");
 }
+
+bool cpfProfessorJaExiste(professor lista_professor[], int qtdProfessor, char cpf[]) {
+
+    for (int i = 0; i < qtdProfessor; i++) {
+
+        if (lista_professor[i].ativo && strcmp(lista_professor[i].cpf, cpf) == 0) {
+            return true;
+        }
+
+    }
+
+    return false;
+}

@@ -101,28 +101,3 @@ int validarCPF(char cpf[]) {
     return 1;
 }
 
-bool cpfAlunoJaExiste(aluno lista_aluno[], int qtdAluno, char cpf[]) {
-
-    for (int i = 0; i < qtdAluno; i++) {
-
-        if (lista_aluno[i].ativo && strcmp(lista_aluno[i].cpf, cpf) == 0) {
-            return true;
-        }
-
-    }
-
-    return false;
-}
-
-bool cpfProfessorJaExiste(professor lista_professor[], int qtdProfessor, char cpf[]) {
-
-    for (int i = 0; i < qtdProfessor; i++) {
-
-        if (lista_professor[i].ativo && strcmp(lista_professor[i].cpf, cpf) == 0) {
-            return true;
-        }
-
-    }
-
-    return false;
-}
