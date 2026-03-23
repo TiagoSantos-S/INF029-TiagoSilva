@@ -1,13 +1,9 @@
-#include <windows.h>
 #include "Funcoes/disciplina.h"
 #include "Funcoes/include.h"
 #include "Funcoes/aluno.h"
 #include "Funcoes/professor.h"
 
 int main(void) {
-    SetConsoleOutputCP(CP_UTF8);
-    SetConsoleCP(CP_UTF8);
-
     aluno lista_aluno[TAM] = {0};
     professor lista_professor[TAM] = {0};
     disciplina lista_disciplina[TAM] = {0};

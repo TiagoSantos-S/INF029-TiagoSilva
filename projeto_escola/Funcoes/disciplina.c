@@ -94,7 +94,7 @@ void cadastrarAlunosDisciplina(disciplina lista_disciplinas[], int *qtdDisciplin
     }
 
     int achou = -1;
-    for(int i = 0; i < qtdDisciplina; i++){
+    for(int i = 0; i < *qtdDisciplina; i++){
         if(codigo_disciplina == lista_disciplinas[i].codigo_disciplina){
             achou = i;
             break;
@@ -117,8 +117,8 @@ void cadastrarAlunosDisciplina(disciplina lista_disciplinas[], int *qtdDisciplin
         return;
     }
 
-    int achou = -1;
-    for(int i = 0; i < qtdAluno; i++){
+    achou = -1;
+    for(int i = 0; i < *qtdAluno; i++){
         if(matricula == lista_aluno[i].matricula){
             achou = i;
             break;
@@ -152,7 +152,7 @@ void excluirAlunosDisciplina(disciplina lista_disciplinas[], int *qtdDisciplina,
     }
 
     int achou = -1;
-    for(int i = 0; i < qtdDisciplina; i++){
+    for(int i = 0; i < *qtdDisciplina; i++){
         if(codigo_disciplina == lista_disciplinas[i].codigo_disciplina){
             achou = i;
             break;
@@ -175,7 +175,7 @@ void excluirAlunosDisciplina(disciplina lista_disciplinas[], int *qtdDisciplina,
         return;
     }
 
-    int achou = -1;
+    achou = -1;
     for(int i = 0; i < *qtdAluno; i++){
         if(matricula == lista_aluno[i].matricula){
             achou = i;
@@ -188,7 +188,7 @@ void excluirAlunosDisciplina(disciplina lista_disciplinas[], int *qtdDisciplina,
         return; 
     }
 
-    int achou = 0;
+    achou = 0;
     for(int i = 0; i < *qtdDisciplina; i++){
         if(codigo_disciplina == lista_disciplinas[i].codigo_disciplina && matricula == lista_disciplinas[i].alunos.matricula){
 
