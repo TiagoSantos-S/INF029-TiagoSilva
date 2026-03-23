@@ -4,13 +4,12 @@
 
 void cadastrarProfessor(professor listar_professor[], int *qtdProfessor, int *sequencia) {
 
-    char cpf[CPF];
     char nome[MAX_NOME_PESSOA];
     char buffer[50];
     char cpfDigitado[20];
     char cpfLimpo[12];
 
-    printf("=== Cadastrar Professor ===\n");
+    printf("\n========== Cadastrar Professor ==========\n");
 
     if(*qtdProfessor == TAM){
         printf("Lista de professores cheia!\n");
@@ -19,20 +18,22 @@ void cadastrarProfessor(professor listar_professor[], int *qtdProfessor, int *se
 
     int matricula = gerarMatricula(qtdProfessor);
 
-    printf("Matrícula do professor gerada automaticamente: %d\n", matricula);
+    matricula = matricula + 200;
+
+    printf("\nMatrícula do professor gerada automaticamente: %d\n", matricula);
     
     if (matricula < 0) {
         printf("Matrícula inválida\n");
         return;
     }
 
-    printf("Informe o sexo (M/F): \n");
+    printf("\nInforme o sexo (M/F): \n");
     fgets(buffer, sizeof(buffer), stdin);
     char sexo = buffer[0];
 
     while (1) {
 
-    printf("Informe o CPF:\n");
+    printf("\nInforme o CPF:\n");
     fgets(cpfDigitado, sizeof(cpfDigitado), stdin);
     cpfDigitado[strcspn(cpfDigitado, "\n")] = '\0';
 
@@ -51,33 +52,35 @@ void cadastrarProfessor(professor listar_professor[], int *qtdProfessor, int *se
     break;
     }   
 
-    printf("Informe o nome completo do professor: \n");
+    printf("\nInforme o nome completo do professor: \n");
     fgets(nome, sizeof(nome), stdin);
     nome[strcspn(nome, "\n")] = '\0';
 
     listar_professor[*qtdProfessor].matricula = matricula;
     listar_professor[*qtdProfessor].sexo = sexo;
-    strcpy(listar_professor[*qtdProfessor].cpf, cpf);
+    strcpy(listar_professor[*qtdProfessor].cpf, cpfLimpo);
     strcpy(listar_professor[*qtdProfessor].nome, nome);
     listar_professor[*qtdProfessor].ativo = true;
 
     (*qtdProfessor)++;
 
-    printf("Professor Cadastrado com Sucesso!\n");
+    printf("\nProfessor Cadastrado com Sucesso!!!\n");
 
 }
 
 // Listar Professor //
 
 void listarProfessor(professor listar_professor[], int qtdProfessor){
-        printf("=== Listar Professor ===\n");
+    printf("\n========== Listar Professor ==========\n");
+
+    int contador = 1;
 
     if (qtdProfessor == 0) {
         printf("Lista do Professor vazia\n");
     } else {
         for (int i = 0; i < qtdProfessor; i++) {
             if (listar_professor[i].ativo) {
-                printf("--------------- Professor: %d -------------\n", i + 1);
+                printf("--------------- Professor: %d -------------\n", contador++);
                 printf("Matrícula: %d\n", listar_professor[i].matricula);
                 printf("Nome do(a) Professor(a): %s\n", listar_professor[i].nome);
                 printf("Sexo do(a) Professor(a): %c\n", listar_professor[i].sexo);
@@ -93,12 +96,12 @@ void listarProfessor(professor listar_professor[], int qtdProfessor){
 void atualizarProfessor(professor listar_professor[], int qtdProfessor) {
 
     if (qtdProfessor == 0) {
-    printf("Nenhum Professor cadastrado\n");
+    printf("\nNenhum Professor cadastrado\n");
     return;
     }
 
-    printf("=== Atualizar Professor ===\n");
-    printf("Digite a matricula:\n");
+    printf("\n========== Atualizar Professor ==========\n");
+    printf("\nDigite a matricula:\n");
 
     int matricula;
     scanf("%d", &matricula);
@@ -126,7 +129,7 @@ void atualizarProfessor(professor listar_professor[], int qtdProfessor) {
     }
 
     // menu de atualização //
-    printf("0 - Voltar\n");
+    printf("\n0 - Voltar\n");
     printf("1 - Atualizar CPF\n");
     printf("2 - Atualizar Nome\n");
 
@@ -137,28 +140,28 @@ void atualizarProfessor(professor listar_professor[], int qtdProfessor) {
     switch (opcao) {
 
         case 0:
-            printf("Voltando...\n");
+            printf("\nVoltando...\n");
             break;
 
         case 1: {
             char cpf[CPF];
-            printf("Informe o novo CPF:\n");
+            printf("\nInforme o novo CPF:\n");
             fgets(cpf, CPF, stdin);
             cpf[strcspn(cpf, "\n")] = '\0';
 
             strcpy(listar_professor[indice].cpf, cpf);
-            printf("CPF atualizado com sucesso\n");
+            printf("\nCPF atualizado com sucesso\n");
             break;
         }
 
         case 2: {
             char nome[MAX_NOME_PESSOA];
-            printf("Informe o novo nome:\n");
+            printf("\nInforme o novo nome:\n");
             fgets(nome, sizeof(nome), stdin);
             nome[strcspn(nome, "\n")] = '\0';
 
             strcpy(listar_professor[indice].nome, nome);
-            printf("Nome atualizado com sucesso\n");
+            printf("\nNome atualizado com sucesso\n");
             break;
         }
 
@@ -171,8 +174,8 @@ void atualizarProfessor(professor listar_professor[], int qtdProfessor) {
 
 void excluirProfessor(professor listar_professor[], int *qtdProfessor) {
 
-    printf("=== Excluir Professor ===\n");
-    printf("Digite a matricula\n");
+    printf("\n========== Excluir Professor ==========\n");
+    printf("\nDigite a matricula\n");
 
     int matricula;
     scanf("%d", &matricula);
@@ -181,7 +184,7 @@ void excluirProfessor(professor listar_professor[], int *qtdProfessor) {
     int achou = 0;
 
     if (matricula < 0) {
-        printf("Matrícula Inválida\n");
+        printf("\nMatrícula Inválida\n");
         return;
     }
 
@@ -199,9 +202,9 @@ void excluirProfessor(professor listar_professor[], int *qtdProfessor) {
     }
 
     if (achou)
-        printf("Professor excluído com sucesso\n");
+        printf("\nProfessor excluído com sucesso\n");
     else
-        printf("Matrícula inexistente\n");
+        printf("\nMatrícula inexistente\n");
 }
 
 bool cpfProfessorJaExiste(professor lista_professor[], int qtdProfessor, char cpf[]) {

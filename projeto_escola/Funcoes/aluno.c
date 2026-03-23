@@ -9,7 +9,7 @@ void cadastrarAluno(aluno lista_aluno[], int *qtdAluno, int *sequencia) {
     char cpfDigitado[20];
     char cpfLimpo[12];
 
-    printf("=== Cadastrar Aluno ===\n");
+    printf("\n========== Cadastrar Aluno ==========\n");
 
     if (*qtdAluno == TAM) {
         printf("Lista de alunos cheia\n");
@@ -18,20 +18,22 @@ void cadastrarAluno(aluno lista_aluno[], int *qtdAluno, int *sequencia) {
 
     int matricula = gerarMatricula(sequencia);
 
-    printf("Matrícula gerada automaticamente: %d\n", matricula);
+    matricula = matricula + 100;
+
+    printf("\nMatrícula gerada automaticamente: %d\n", matricula);
 
     if (matricula < 0) {
         printf("Matrícula inválida\n");
         return;
     }
 
-    printf("Informe o sexo (M/F):\n");
+    printf("\nInforme o sexo (M/F):\n");
     fgets(buffer, sizeof(buffer), stdin);
     char sexo = buffer[0];
 
     while (1) {
 
-    printf("Informe o CPF:\n");
+    printf("\nInforme o CPF:\n");
     fgets(cpfDigitado, sizeof(cpfDigitado), stdin);
     cpfDigitado[strcspn(cpfDigitado, "\n")] = '\0';
 
@@ -50,11 +52,11 @@ void cadastrarAluno(aluno lista_aluno[], int *qtdAluno, int *sequencia) {
     break;
     }   
 
-    printf("Informe o nome completo do aluno:\n");
+    printf("\nInforme o nome completo do aluno:\n");
     fgets(nome, sizeof(nome), stdin);
     nome[strcspn(nome, "\n")] = '\0';
 
-    printf("informe a data de nascimento no formato D/M/A\n");
+    printf("\ninforme a data de nascimento no formato D/M/A\n");
     lerDataNascimento(lista_aluno, *qtdAluno);
     
     lista_aluno[*qtdAluno].matricula = matricula;
@@ -65,18 +67,18 @@ void cadastrarAluno(aluno lista_aluno[], int *qtdAluno, int *sequencia) {
 
     (*qtdAluno)++;
 
-    printf("Cadastrado com sucesso\n");
+    printf("\nAluno cadastrado com sucesso!!!\n");
 }
 
 // menu //
 
 void menuListagem() {
-    printf("\n=== LISTAR ALUNOS ===\n");
-    printf("1 - Ordem Alfabética\n");
-    printf("2 - Ordem por Matrícula\n");
-    printf("3 - Apenas Sexo Feminino\n");
+    printf("\n========== LISTAR ALUNOS ==========\n");
+    printf("\n 1 - Ordem Alfabética\n");
+    printf(" 2 - Ordem por Matrícula\n");
+    printf(" 3 - Apenas Sexo Feminino\n");
     printf("4 - Apenas Sexo Masculino\n");
-    printf("Escolha uma opção: ");
+    printf("\nEscolha uma opção: ");
 }
 
 // LISTAR ALUNO //
@@ -162,8 +164,8 @@ void atualizarAluno(aluno lista_aluno[], int qtdAluno) {
     }
 
 
-    printf("=== Atualizar Aluno ===\n");
-    printf("Digite a matricula:\n");
+    printf("\n========== Atualizar Aluno ==========\n");
+    printf("\nDigite a matricula:\n");
 
     int matricula;
     scanf("%d", &matricula);
@@ -191,9 +193,9 @@ void atualizarAluno(aluno lista_aluno[], int qtdAluno) {
     }
 
     // menu de atualização
-    printf("0 - Voltar\n");
-    printf("1 - Atualizar CPF\n");
-    printf("2 - Atualizar Nome\n");
+    printf("\n0 - Voltar\n");
+    printf("\n1 - Atualizar CPF\n");
+    printf("\n2 - Atualizar Nome\n");
 
     int opcao;
     scanf("%d", &opcao);
@@ -202,42 +204,42 @@ void atualizarAluno(aluno lista_aluno[], int qtdAluno) {
     switch (opcao) {
 
         case 0:
-            printf("Voltando...\n");
+            printf("\nVoltando...\n");
             break;
 
         case 1: {
             char cpfDigitado[20];
             char cpfLimpo[12];
 
-            printf("Informe o novo CPF:\n");
+            printf("\nInforme o novo CPF:\n");
             fgets(cpfDigitado, sizeof(cpfDigitado), stdin);
             cpfDigitado[strcspn(cpfDigitado, "\n")] = '\0';
 
             limparCPF(cpfDigitado, cpfLimpo);
 
             if (!validarCPF(cpfLimpo)) {
-                printf("CPF inválido\n");
+                printf("\nCPF inválido\n");
                 return;
             }
 
             strcpy(lista_aluno[indice].cpf, cpfLimpo);
-            printf("CPF atualizado com sucesso\n");
+            printf("\nCPF atualizado com sucesso\n");
             break;
         }
 
         case 2: {
             char nome[MAX_NOME_PESSOA];
-            printf("Informe o novo nome:\n");
+            printf("\nInforme o novo nome:\n");
             fgets(nome, sizeof(nome), stdin);
             nome[strcspn(nome, "\n")] = '\0';
 
             strcpy(lista_aluno[indice].nome, nome);
-            printf("Nome atualizado com sucesso\n");
+            printf("\nNome atualizado com sucesso\n");
             break;
         }
 
         default:
-            printf("Opção inválida\n");
+            printf("\nOpção inválida\n");
     }
 }
 
@@ -245,8 +247,8 @@ void atualizarAluno(aluno lista_aluno[], int qtdAluno) {
 
 void excluirAluno(aluno lista_aluno[], int *qtdAluno) {
 
-    printf("=== Excluir Aluno ===\n");
-    printf("Digite a matricula\n");
+    printf("\n========== Excluir Aluno ==========\n");
+    printf("\nDigite a matricula\n");
 
     int matricula;
     scanf("%d", &matricula);
@@ -273,7 +275,7 @@ void excluirAluno(aluno lista_aluno[], int *qtdAluno) {
     }
 
     if (achou)
-        printf("Aluno excluído com sucesso\n");
+        printf("\nAluno excluído com sucesso\n");
     else
         printf("Matrícula inexistente\n");
 }

@@ -3,6 +3,8 @@
 #include "Funcoes/aluno.h"
 #include "Funcoes/professor.h"
 
+// Run : gcc projeto_escola.c Funcoes/*.c -I Funcoes -o projeto_escola && ./projeto_escola 
+
 int main(void) {
     aluno lista_aluno[TAM] = {0};
     professor lista_professor[TAM] = {0};
@@ -17,12 +19,13 @@ int main(void) {
     int sair = false;
 
     while (!sair) {
-        printf("Projeto Escola\n");
-        printf("0 - Sair\n");
-        printf("1 - Módulo Aluno\n");
-        printf("2 - Módulo Professor\n");
-        printf("3 - Módulo Disciplina\n");
+        printf("\n========== Projeto Escola ==========\n");
+        printf("\n 0 - Sair\n");
+        printf(" 1 - Módulo Aluno\n");
+        printf(" 2 - Módulo Professor\n");
+        printf(" 3 - Módulo Disciplina\n");
 
+        printf("\nDigite a opção desejada: ");
         scanf("%d", &opcao);
         limpar_buffer();
 
@@ -34,18 +37,19 @@ int main(void) {
             }
 
             case 1: {
-                printf("Módulo Aluno\n");
+                printf("\n********** Módulo Aluno **********\n");
 
                 int sairAluno = false;
                 int opcao_aluno;
 
                 while (!sairAluno) {
-                    printf("0 - Voltar\n");
-                    printf("1 - Cadastrar Aluno\n");
-                    printf("2 - Listar Aluno\n");
-                    printf("3 - Atualizar Aluno\n");
-                    printf("4 - Excluir Aluno\n");
+                    printf("\n 0 - Voltar\n");
+                    printf(" 1 - Cadastrar Aluno\n");
+                    printf(" 2 - Listar Aluno\n");
+                    printf(" 3 - Atualizar Aluno\n");
+                    printf(" 4 - Excluir Aluno\n");
 
+                    printf("\nDigite a opção desejada: ");
                     scanf("%d", &opcao_aluno);
                     limpar_buffer();
 
@@ -91,18 +95,19 @@ int main(void) {
             }
 
             case 2: {
-                printf("Módulo Professor\n");
+                printf("\n********** Módulo Professor **********\n");
 
                 int sairProfessor = false;
                 int opcao_professor;
 
                 while (!sairProfessor) {
-                    printf("0 - Voltar\n");
-                    printf("1 - Cadastrar Professor\n");
-                    printf("2 - Listar Professor\n");
-                    printf("3 - Atualizar Professor\n");
-                    printf("4 - Excluir Professor\n");
+                    printf("\n 0 - Voltar\n");
+                    printf(" 1 - Cadastrar Professor\n");
+                    printf(" 2 - Listar Professor\n");
+                    printf(" 3 - Atualizar Professor\n");
+                    printf(" 4 - Excluir Professor\n");
 
+                    printf("\nDigite a opção desejada: ");
                     scanf("%d", &opcao_professor);
                     limpar_buffer();
 
@@ -144,20 +149,21 @@ int main(void) {
             }
 
             case 3: {
-                printf("Módulo Disciplina\n");
+                printf("\n********** Módulo Disciplina **********\n");
 
                 int sairDisciplina = false;
                 int opcao_disciplina;
 
                 while (!sairDisciplina) {
-                    printf("0 - Voltar\n");
-                    printf("1 - Cadastrar Disciplina\n");
-                    printf("2 - Listar Disciplinas\n");
-                    printf("3 - Inserir aluno em uma disciplina\n");
-                    printf("4 - Excluir aluno de uma disciplina\n");
-                    printf("5 - Listar uma Disciplina com os dados dos alunos\n");
-                    printf("6 - Lista de Disciplinas que extrapolam mais de 40 vagas\n");
+                    printf("\n 0 - Voltar\n");
+                    printf(" 1 - Cadastrar Disciplina\n");
+                    printf(" 2 - Listar Disciplinas\n");
+                    printf(" 3 - Inserir aluno em uma disciplina\n");
+                    printf(" 4 - Excluir aluno de uma disciplina\n");
+                    printf(" 5 - Listar uma Disciplina com os dados dos alunos\n");
+                    printf(" 6 - Lista de Disciplinas que extrapolam mais de 40 vagas\n");
 
+                    printf("\nDigite a opção desejada: ");
                     if (scanf("%d", &opcao_disciplina) != 1) {
                         limpar_buffer();
                         continue;
@@ -197,7 +203,7 @@ int main(void) {
                         }
 
                         case 6: {
-                          listaDisciplinasExtrapolam40Vagas(lista_disciplina, qtdDisciplina);
+                          listaDisciplinasExtrapolam40Vagas(lista_disciplina, qtdDisciplina, lista_aluno, qtdAluno, lista_professor, qtdProfessor);
                           break;
                         }
 
