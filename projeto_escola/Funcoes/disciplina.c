@@ -1,5 +1,9 @@
 #include "disciplina.h"
 
+// Criar lista de aluno para cada disciplina, para isso é necessário criar um vetor de alunos dentro da struct disciplina, 
+// e um contador de alunos para cada disciplina. Dessa forma, é possível cadastrar vários alunos em uma mesma disciplina, 
+// e também excluir alunos de uma disciplina.
+
 // Cadastrar Disciplina //
 
 void cadastrarDisciplina(disciplina lista_disciplinas[], int *qtdDisciplina, professor lista_professores[], int qtdProfessor) {
@@ -139,7 +143,8 @@ void cadastrarAlunosDisciplina(disciplina lista_disciplinas[], int *qtdDisciplin
     lista_disciplinas[*qtdDisciplina].alunos = lista_aluno[achou];
     lista_disciplinas[*qtdDisciplina].codigo_disciplina = codigo_disciplina;
 
-    (*qtdDisciplina)++;
+    // (*qtdDisciplina)++; -- Dessa forma ele cria uma nova disciplna
+    lista_disciplinas[achou].alunos = lista_aluno[achou]; // -- forma correta de adicionar o aluno na disciplina
 
     printf("\nAluno Cadastrado na Disciplina com Sucesso!\n");
     
