@@ -4,7 +4,7 @@
 
 void cadastrarDisciplina(disciplina lista_disciplinas[], int *qtdDisciplina, professor lista_professores[], int qtdProfessor) {
     
-    if (*qtdDisciplina >= TAM) {
+    if (*qtdDisciplina == TAM) {
         printf("Lista de Disciplinas cheia\n");
         return;
     }
@@ -53,6 +53,23 @@ void cadastrarDisciplina(disciplina lista_disciplinas[], int *qtdDisciplina, pro
     lista_disciplinas[*qtdDisciplina].professor = lista_professores[achou];
     
     (*qtdDisciplina)++;
+
+    // --- LÓGICA PARA SALVAR NO ARQUIVO ---
+    FILE *arquivo = fopen("disciplinas.txt", "a"); // "a" de append (anexar)
+
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo de disciplinas!\n");
+    } else {
+        fprintf(arquivo, "Código: %d | Nome: %s | Semestre: %d | Professor: %s\n",
+                lista_disciplinas[*qtdDisciplina - 1].codigo_disciplina,
+                lista_disciplinas[*qtdDisciplina - 1].nome_disciplina,
+                lista_disciplinas[*qtdDisciplina - 1].semestre,
+                lista_disciplinas[*qtdDisciplina - 1].professor.nome);
+        
+        fclose(arquivo); 
+        printf("Dados salvos em disciplinas.txt\n");
+    }
+
     printf("\nDisciplina Cadastrada com Sucesso!\n");
 }
 
@@ -99,47 +116,48 @@ void cadastrarAlunosDisciplina(disciplina lista_disciplinas[], int *qtdDisciplin
         return;
     }
 
-    int achou = -1;
+    int idx_disc = -1;
     for(int i = 0; i < *qtdDisciplina; i++){
         if(codigo_disciplina == lista_disciplinas[i].codigo_disciplina){
-            achou = i;
+            idx_disc = i;
             break;
         }
     }
 
-    if(achou == -1){
+    if(idx_disc == -1){
         printf("\nErro: Disciplina com matricula %d não encontrado!\n", codigo_disciplina);
         return; 
     }
 
+    if (lista_disciplinas[idx_disc].qtd_alunos >= lista_disciplinas[idx_disc].vagas) {
+        printf("Erro: Disciplina sem vagas disponiveis!\n");
+        return;
+}
+
     printf("\nInforme a matricula do aluno: \n");
-    scanf("%d", &lista_aluno[*qtdAluno].matricula);
+    int matricula_aux; 
+    scanf("%d", &matricula_aux); 
     limpar_buffer();
 
-    int matricula = lista_aluno[*qtdAluno].matricula;
-
-    if (matricula <= 0) {
-        printf("\nMatricula do Aluno Invalido\n");
-        return;
-    }
-
-    achou = -1;
+    int idx_aluno = -1;
     for(int i = 0; i < *qtdAluno; i++){
-        if(matricula == lista_aluno[i].matricula){
-            achou = i;
+        if(matricula_aux == lista_aluno[i].matricula){
+            idx_aluno = i;
             break;
         }
     }
 
-    if(achou == -1){
-        printf("\nErro: Aluno com matricula %d não encontrado!\n", matricula);
-        return; 
+    if(idx_aluno == -1){
+        printf("Erro: Aluno não encontrado!\n");
+        return;
     }
 
-    lista_disciplinas[*qtdDisciplina].alunos = lista_aluno[achou];
-    lista_disciplinas[*qtdDisciplina].codigo_disciplina = codigo_disciplina;
+    int pos = lista_disciplinas[idx_disc].qtd_alunos;
 
-    (*qtdDisciplina)++;
+    lista_disciplinas[*qtdDisciplina].codigo_disciplina = codigo_disciplina;
+    lista_disciplinas[idx_disc].alunos[pos] = lista_aluno[idx_aluno];
+    lista_disciplinas[idx_disc].qtd_alunos++;
+    
 
     printf("\nAluno Cadastrado na Disciplina com Sucesso!\n");
     
@@ -173,45 +191,50 @@ void excluirAlunosDisciplina(disciplina lista_disciplinas[], int *qtdDisciplina,
     }
 
     printf("\nInforme a matricula do aluno: \n");
-    scanf("%d", &lista_aluno[*qtdAluno].matricula);
+    int matricula_aux; 
+    scanf("%d", &matricula_aux); 
     limpar_buffer();
 
-    int matricula = lista_aluno[*qtdAluno].matricula;
+    int idx_aluno = -1;
+    for(int i = 0; i < *qtdAluno; i++){
+        if(matricula_aux == lista_aluno[i].matricula){
+            idx_aluno = i;
+            break;
+        }
+    }
 
-    if (matricula <= 0) {
-        printf("\nMatricula do Aluno Invalido\n");
+    if(idx_aluno == -1){
+        printf("Erro: Aluno não encontrado!\n");
         return;
     }
 
-    achou = -1;
-    for(int i = 0; i < *qtdAluno; i++){
-        if(matricula == lista_aluno[i].matricula){
-            achou = i;
-            break;
-        }
-    }
-
-    if(achou == -1){
-        printf("\nErro: Aluno com matricula %d não encontrado!\n", matricula);
-        return; 
-    }
-
-    achou = 0;
+    int id_disc = -1;
     for(int i = 0; i < *qtdDisciplina; i++){
-        if(codigo_disciplina == lista_disciplinas[i].codigo_disciplina && matricula == lista_disciplinas[i].alunos.matricula){
-
-            for(int j = i; j < *qtdAluno - 1; j++){
-                lista_aluno[j]= lista_aluno[j + 1];
-            }
-
-            (*qtdAluno)--;
-            achou = 1;
+        if(codigo_disciplina == lista_disciplinas[i].codigo_disciplina){
+            id_disc = i;
             break;
         }
     }
 
-    if(achou){
+    // 2. Agora vamos procurar o aluno DENTRO dessa disciplina específica
+    int achou_aluno_na_disc = -1;
+    for(int j = 0; j < lista_disciplinas[id_disc].qtd_alunos; j++) {
+        if(lista_disciplinas[id_disc].alunos[j].matricula == matricula_aux) {
+            achou_aluno_na_disc = j;
+            break;
+        }
+    }
+
+    // 3. Se achou, removemos "puxando" os próximos para a esquerda
+    if(achou_aluno_na_disc != -1) {
+        for(int k = achou_aluno_na_disc; k < lista_disciplinas[id_disc].qtd_alunos - 1; k++) {
+            lista_disciplinas[id_disc].alunos[k] = lista_disciplinas[id_disc].alunos[k+1];
+        }
+        // 4. Diminui a quantidade de alunos cadastrados NESSA disciplina
+        lista_disciplinas[id_disc].qtd_alunos--;
         printf("\nAluno Excluido da Disciplina com Sucesso!\n");
+    } else {
+        printf("\nErro: Este aluno não está matriculado nesta disciplina!\n");
     }
 
 }
@@ -250,29 +273,29 @@ void listaDisciplinaComDadosAlunos(disciplina lista_disciplinas[], int qtdDiscip
 
     int contador = 1;
 
-    if(lista_disciplinas[achou].codigo_disciplina == codigo_disciplina){
-        printf("--------------- Disciplina: %d -------------\n", contador++);
-        printf("Codigo da Disciplina: %d\n", lista_disciplinas[achou].codigo_disciplina);
-        printf("Nome da Disciplina: %s\n", lista_disciplinas[achou].nome_disciplina);
-        printf("Professor(a) da Disciplina: %s\n", lista_disciplinas[achou].professor.nome);
-        for(int j = 0; j < qtdAluno; j++){
-            if(lista_disciplinas[achou].alunos.matricula == lista_aluno[j].matricula){
-                printf("Matrícula do Aluno: %d\n", lista_aluno[j].matricula);
-            }
+    printf("--------------- Dados da Disciplina -------------\n");
+    printf("Codigo da Disciplina: %d\n", lista_disciplinas[achou].codigo_disciplina);
+    printf("Nome da Disciplina: %s\n", lista_disciplinas[achou].nome_disciplina);
+    printf("Professor(a): %s\n", lista_disciplinas[achou].professor.nome);
+    
+    printf("\nAlunos Matriculados:\n");
+
+    if (lista_disciplinas[achou].qtd_alunos == 0) {
+        printf("Nenhum aluno matriculado nesta disciplina.\n");
+    } else {
+        for(int j = 0; j < lista_disciplinas[achou].qtd_alunos; j++) {
+            printf("  > Aluno: %s (Matrícula: %d)\n", 
+                    lista_disciplinas[achou].alunos[j].nome, 
+                    lista_disciplinas[achou].alunos[j].matricula);
         }
-        printf("--------------------------------------------\n");
     }
+    printf("--------------------------------------------\n");
 
 }
 
 // Lista de Disciplinas que extrapolam 40 vagas //
 
-void listaDisciplinasExtrapolam40Vagas(disciplina lista_disciplinas[], int qtdDisciplina, aluno lista_aluno[], int qtdAluno, professor lista_professor[], int qtdProfessor) {   
-    if(qtdDisciplina == 0) {
-        printf("Lista Disciplina vazia\n");
-        return;
-    }
-
+void listaDisciplinasExtrapolam40Vagas(disciplina lista_disciplinas[], int qtdDisciplina, professor lista_professor[], int qtdProfessor) {   
     int contador = 1;
 
     for(int i = 0; i < qtdDisciplina; i++){

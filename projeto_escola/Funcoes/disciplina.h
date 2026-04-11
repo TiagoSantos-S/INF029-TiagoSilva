@@ -6,6 +6,7 @@
 #include "aluno.h"
 
 #define MAX_NOME_DISCIPLINA 50
+#define MAX_ALUNOS_DISCIPLINA 40
 
 typedef struct disciplina{
     char nome_disciplina[MAX_NOME_DISCIPLINA];
@@ -13,7 +14,7 @@ typedef struct disciplina{
     int semestre;
     int vagas;
     professor professor;
-    aluno alunos;
+    aluno alunos[MAX_ALUNOS_DISCIPLINA];
     int qtd_alunos;
 } disciplina;
 
@@ -22,6 +23,6 @@ void listaDisciplinaSemDadosAlunos(disciplina lista_disciplinas[], int qtdDiscip
 void cadastrarAlunosDisciplina(disciplina lista_disciplinas[], int *qtdDisciplina, aluno lista_aluno[], int *qtdAluno);
 void excluirAlunosDisciplina(disciplina lista_disciplinas[], int *qtdDisciplina, aluno lista_aluno[], int *qtdAluno);
 void listaDisciplinaComDadosAlunos(disciplina lista_disciplinas[], int qtdDisciplina, aluno lista_aluno[], int qtdAluno);
-void listaDisciplinasExtrapolam40Vagas(disciplina lista_disciplinas[], int qtdDisciplina, aluno lista_aluno[], int qtdAluno, professor lista_professor[], int qtdProfessor);
+void listaDisciplinasExtrapolam40Vagas(disciplina lista_disciplinas[], int qtdDisciplina, professor lista_professor[], int qtdProfessor);
 
 #endif

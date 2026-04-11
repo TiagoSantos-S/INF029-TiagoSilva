@@ -3,7 +3,10 @@
 #include "Funcoes/aluno.h"
 #include "Funcoes/professor.h"
 
-// Run : gcc projeto_escola.c Funcoes/*.c -I Funcoes -o projeto_escola && ./projeto_escola 
+// -- Para compilar e executar o projeto, utilize o seguinte comando no terminal, estando na pasta do projeto:
+
+// cd ./projeto_escola/
+// gcc projeto_escola.c Funcoes/*.c -I Funcoes -o projeto_escola && ./projeto_escola 
 
 int main(void) {
     aluno lista_aluno[TAM] = {0};
@@ -203,7 +206,8 @@ int main(void) {
                         }
 
                         case 6: {
-                          listaDisciplinasExtrapolam40Vagas(lista_disciplina, qtdDisciplina, lista_aluno, qtdAluno, lista_professor, qtdProfessor);
+                            // Não está funcionando -- corrigir
+                          listaDisciplinasExtrapolam40Vagas(lista_disciplina, qtdDisciplina, lista_professor, qtdProfessor);
                           break;
                         }
 

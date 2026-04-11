@@ -64,6 +64,21 @@ void cadastrarProfessor(professor listar_professor[], int *qtdProfessor, int *se
 
     (*qtdProfessor)++;
 
+    // --- LÓGICA PARA SALVAR NO ARQUIVO ---
+    FILE *arquivo = fopen("professores.txt", "a"); // "a" de append (anexar)
+
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo de professores!\n");
+    } else {
+        fprintf(arquivo, "Matrícula: %d | Nome: %s | Sexo: %c | CPF: %s\n",
+                listar_professor[*qtdProfessor - 1].matricula,
+                listar_professor[*qtdProfessor - 1].nome,
+                listar_professor[*qtdProfessor - 1].sexo,
+                listar_professor[*qtdProfessor - 1].cpf);
+        fclose(arquivo);
+        printf("Dados salvos em professores.txt\n");
+    }
+
     printf("\nProfessor Cadastrado com Sucesso!!!\n");
 
 }
