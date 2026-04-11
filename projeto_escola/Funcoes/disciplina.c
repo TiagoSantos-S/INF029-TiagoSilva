@@ -53,6 +53,23 @@ void cadastrarDisciplina(disciplina lista_disciplinas[], int *qtdDisciplina, pro
     lista_disciplinas[*qtdDisciplina].professor = lista_professores[achou];
     
     (*qtdDisciplina)++;
+
+    // --- LÓGICA PARA SALVAR NO ARQUIVO ---
+    FILE *arquivo = fopen("disciplinas.txt", "a"); // "a" de append (anexar)
+
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo de disciplinas!\n");
+    } else {
+        fprintf(arquivo, "Código: %d | Nome: %s | Semestre: %d | Professor: %s\n",
+                lista_disciplinas[*qtdDisciplina - 1].codigo_disciplina,
+                lista_disciplinas[*qtdDisciplina - 1].nome_disciplina,
+                lista_disciplinas[*qtdDisciplina - 1].semestre,
+                lista_disciplinas[*qtdDisciplina - 1].professor.nome);
+        
+        fclose(arquivo); 
+        printf("Dados salvos em disciplinas.txt\n");
+    }
+
     printf("\nDisciplina Cadastrada com Sucesso!\n");
 }
 

@@ -67,6 +67,24 @@ void cadastrarAluno(aluno lista_aluno[], int *qtdAluno, int *sequencia) {
 
     (*qtdAluno)++;
 
+    // --- LÓGICA PARA SALVAR NO ARQUIVO ---
+    FILE *arquivo = fopen("alunos.txt", "a"); // "a" de append (anexar)
+
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo de alunos!\n");
+    } else {
+        fprintf(arquivo, "Matrícula: %d | Nome: %s | Sexo: %c | CPF: %s | Data de Nascimento: %d/%d/%d\n",
+                lista_aluno[*qtdAluno - 1].matricula,
+                lista_aluno[*qtdAluno - 1].nome,
+                lista_aluno[*qtdAluno - 1].sexo,
+                lista_aluno[*qtdAluno - 1].cpf,
+                lista_aluno[*qtdAluno - 1].data_nascimento.dia,
+                lista_aluno[*qtdAluno - 1].data_nascimento.mes,
+                lista_aluno[*qtdAluno - 1].data_nascimento.ano);
+        fclose(arquivo);
+        printf("Dados salvos em alunos.txt\n");
+    }
+
     printf("\nAluno cadastrado com sucesso!!!\n");
 }
 
