@@ -295,12 +295,7 @@ void listaDisciplinaComDadosAlunos(disciplina lista_disciplinas[], int qtdDiscip
 
 // Lista de Disciplinas que extrapolam 40 vagas //
 
-void listaDisciplinasExtrapolam40Vagas(disciplina lista_disciplinas[], int qtdDisciplina, aluno lista_aluno[], int qtdAluno, professor lista_professor[], int qtdProfessor) {   
-    if(qtdDisciplina == 0) {
-        printf("Lista Disciplina vazia\n");
-        return;
-    }
-
+void listaDisciplinasExtrapolam40Vagas(disciplina lista_disciplinas[], int qtdDisciplina, professor lista_professor[], int qtdProfessor) {   
     int contador = 1;
 
     for(int i = 0; i < qtdDisciplina; i++){
