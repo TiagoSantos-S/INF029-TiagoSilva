@@ -18,6 +18,7 @@ typedef struct aluno{
     int ativo;
 } aluno;
 
+void salvarArquivo(aluno lista_aluno[], int qtdAluno);
 int gerarMatricula(int *sequencia);
 int pegarAnoAtual();
 int validarData(int dia, int mes, int ano);

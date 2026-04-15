@@ -242,6 +242,7 @@ void atualizarAluno(aluno lista_aluno[], int qtdAluno) {
 
             strcpy(lista_aluno[indice].cpf, cpfLimpo);
             printf("\nCPF atualizado com sucesso\n");
+            salvarArquivo(lista_aluno, qtdAluno);
             break;
         }
 
@@ -253,6 +254,7 @@ void atualizarAluno(aluno lista_aluno[], int qtdAluno) {
 
             strcpy(lista_aluno[indice].nome, nome);
             printf("\nNome atualizado com sucesso\n");
+            salvarArquivo(lista_aluno, qtdAluno);
             break;
         }
 
@@ -292,10 +294,12 @@ void excluirAluno(aluno lista_aluno[], int *qtdAluno) {
         }
     }
 
-    if (achou)
+    if (achou){
         printf("\nAluno excluído com sucesso\n");
-    else
+        salvarArquivo(lista_aluno, *qtdAluno);
+        }else{
         printf("Matrícula inexistente\n");
+        }
 }
 
 bool cpfAlunoJaExiste(aluno lista_aluno[], int qtdAluno, char cpf[]) {
@@ -363,4 +367,34 @@ int validarData(int dia, int mes, int ano) {
     }
 
     return 1;
+}
+
+void salvarArquivo(aluno lista_aluno[], int qtdAluno) {
+    FILE *arquivo = fopen("alunos.txt", "w"); // sobrescreve tudo
+
+    if (arquivo == NULL) {
+        printf("Erro ao atualizar o arquivo!\n");
+        return;
+    }
+
+    for (int i = 0; i < qtdAluno; i++) {
+
+        if (!lista_aluno[i].ativo)
+            continue;
+
+        fprintf(arquivo,
+            "Matrícula: %d | Nome: %s | Sexo: %c | CPF: %s | Data de Nascimento: %d/%d/%d\n",
+            lista_aluno[i].matricula,
+            lista_aluno[i].nome,
+            lista_aluno[i].sexo,
+            lista_aluno[i].cpf,
+            lista_aluno[i].data_nascimento.dia,
+            lista_aluno[i].data_nascimento.mes,
+            lista_aluno[i].data_nascimento.ano
+        );
+    }
+
+    fclose(arquivo);
+    printf("Arquivo atualizado com sucesso!\n");
+
 }
