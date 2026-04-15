@@ -16,7 +16,7 @@ void cadastrarProfessor(professor listar_professor[], int *qtdProfessor, int *se
         return;
     }
 
-    int matricula = gerarMatricula(qtdProfessor);
+    int matricula = gerarMatricula(sequencia);
 
     matricula = matricula + 200;
 
@@ -166,6 +166,7 @@ void atualizarProfessor(professor listar_professor[], int qtdProfessor) {
 
             strcpy(listar_professor[indice].cpf, cpf);
             printf("\nCPF atualizado com sucesso\n");
+            salvarProfessor(listar_professor, qtdProfessor);
             break;
         }
 
@@ -177,6 +178,7 @@ void atualizarProfessor(professor listar_professor[], int qtdProfessor) {
 
             strcpy(listar_professor[indice].nome, nome);
             printf("\nNome atualizado com sucesso\n");
+            salvarProfessor(listar_professor, qtdProfessor);
             break;
         }
 
@@ -216,10 +218,12 @@ void excluirProfessor(professor listar_professor[], int *qtdProfessor) {
         }
     }
 
-    if (achou)
-        printf("\nProfessor excluído com sucesso\n");
-    else
-        printf("\nMatrícula inexistente\n");
+    if (achou) {
+    printf("\nProfessor excluído com sucesso\n");
+    salvarProfessor(listar_professor, *qtdProfessor);
+    } else {
+    printf("\nMatrícula inexistente\n");
+    }
 }
 
 bool cpfProfessorJaExiste(professor lista_professor[], int qtdProfessor, char cpf[]) {
@@ -233,4 +237,31 @@ bool cpfProfessorJaExiste(professor lista_professor[], int qtdProfessor, char cp
     }
 
     return false;
+}
+
+void salvarProfessor(professor lista_professor[], int qtdProfessor) {
+
+    FILE *arquivo = fopen("professores.txt", "w");
+
+    if (arquivo == NULL) {
+        printf("Erro ao atualizar o arquivo!\n");
+        return;
+    }
+
+    for (int i = 0; i < qtdProfessor; i++) {
+
+        if (!lista_professor[i].ativo)
+            continue;
+
+        fprintf(arquivo,
+            "Matrícula: %d | Nome: %s | Sexo: %c | CPF: %s\n",
+            lista_professor[i].matricula,
+            lista_professor[i].nome,
+            lista_professor[i].sexo,
+            lista_professor[i].cpf
+        );
+    }
+
+    fclose(arquivo);
+    printf("Arquivo de professores atualizado!\n");
 }

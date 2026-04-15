@@ -1,4 +1,5 @@
 #include "include.h"
+#include "aluno.h"
 
 void limpar_buffer() {
     int c;
@@ -40,11 +41,9 @@ void limparCPF(char cpfOriginal[], char cpfLimpo[]) {
 
 int validarCPF(char cpf[]) {
 
-    // CPF precisa ter 11 dígitos
     if (strlen(cpf) != 11)
         return 0;
 
-    // Verifica se todos os números são iguais (ex: 11111111111)
     int iguais = 1;
 
     for (int i = 1; i < 11; i++) {
@@ -60,25 +59,19 @@ int validarCPF(char cpf[]) {
     int soma = 0;
     int resto;
 
-    // Cálculo do primeiro dígito verificador
+    // Primeiro dígito
     for (int i = 0; i < 9; i++) {
         soma += (cpf[i] - '0') * (10 - i);
     }
 
     resto = soma % 11;
 
-    int dig1;
+    int dig1 = (resto < 2) ? 0 : 11 - resto;
 
-    if (resto < 2)
-        dig1 = 0;
-    else
-        dig1 = 11 - resto;
-
-    // Confere o primeiro dígito
     if (dig1 != (cpf[9] - '0'))
         return 0;
 
-    // Cálculo do segundo dígito verificador
+    // Segundo dígito
     soma = 0;
 
     for (int i = 0; i < 10; i++) {
@@ -87,14 +80,8 @@ int validarCPF(char cpf[]) {
 
     resto = soma % 11;
 
-    int dig2;
+    int dig2 = (resto < 2) ? 0 : 11 - resto;
 
-    if (resto < 2)
-        dig2 = 0;
-    else
-        dig2 = 11 - resto;
-
-    // Confere o segundo dígito
     if (dig2 != (cpf[10] - '0'))
         return 0;
 

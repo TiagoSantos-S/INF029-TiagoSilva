@@ -29,6 +29,7 @@ void excluirProfessor(professor listar_professor[], int *qtdProfessor);
 int validarCPF(char cpf[]);
 void limparCPF(char cpfOriginal[], char cpfLimpo[]);
 bool cpfProfessorJaExiste(professor listar_professor[], int qtdProfessor, char cpf[]);
+void salvarProfessor(professor lista_professor[], int qtdProfessor);
 
 #endif
 
