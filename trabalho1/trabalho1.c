@@ -94,6 +94,7 @@ int teste(int a)
 
 int q1(char data[])
 {
+
     int dia = 0, mes = 0, ano = 0;
     int i = 0;
     int qtd_barra = 0;
@@ -106,7 +107,7 @@ int q1(char data[])
         }
         else
         {
-            // validar se é número
+            // olhar se e numero.
             if (data[i] < '0' || data[i] > '9')
                 return 0;
 
@@ -176,7 +177,6 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
 {
     DiasMesesAnos dma;
 
-    // validações
     if (q1(datainicial) == 0)
     {
         dma.retorno = 2;
@@ -193,7 +193,6 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
 
     int i, barra;
 
-    // -------------------------
     // separar data inicial
     i = 0;
     barra = 0;
@@ -364,44 +363,46 @@ int q3(char *texto, char c, int isCaseSensitive)
         O retorno da função, n, nesse caso seria 1;
 
  */
+
 int q4(char *strTexto, char *strBusca, int posicoes[30])
 {
-    int qtdOcorrencias = 0;
+    int m = 0;
+    int qtdOcorrencia = 0;
+    int k = 0;
 
-    int i, j, k;
-    int pos = 0;
-    int tamTexto = strlen(strTexto);
-    int tamBusca = strlen(strBusca);
 
-    for (i = 0, j = 0; i < tamTexto; i++)
-    {
-        if (strTexto[i] != -61)
-        {
-            strTexto[j] = strTexto[i];
-            j++;
+    printf("%s\n", strTexto);
+
+    for(int i = 0, k = 0; i < strlen(strTexto); i++){
+        if(strTexto[i] == -61){
+            k = i;
+            for(int j = k; j < strlen(strTexto); j++){
+                strTexto[j] = strTexto[j + 1];
+            } 
         }
     }
 
-    strTexto[j] = '\0';
-    tamTexto = strlen(strTexto);
+    printf("%s\n", strTexto);
 
-    for (i = 0; i < tamTexto; i++)
-    {
-        for (j = i, k = 0; k < tamBusca && j < tamTexto && strTexto[j] == strBusca[k]; j++, k++)
-            ;
-
-        if (k == tamBusca)
-        {
-            qtdOcorrencias++;
-
-            posicoes[pos++] = i + 1;
-            posicoes[pos++] = j;
-
-            i += tamBusca - 1;
+    for(int i = 0; i < strlen(strTexto); i++){
+        if(strTexto[i] == strBusca[0]){
+            int ocorrencia = 1;
+            for(int j = 1; j < strlen(strBusca); j++){
+                if(strTexto[i+j] != strBusca[j]){
+                    break;
+                }
+                ocorrencia++;
+                if(ocorrencia == strlen(strBusca)){
+                    qtdOcorrencia++;
+                    posicoes[m] = i + 1;
+                    m++;
+                    posicoes[m] = i + ocorrencia;
+                    m++;
+                }
+            }
         }
     }
-
-    return qtdOcorrencias; 
+    return  qtdOcorrencia; 
 }
 
     /*
@@ -420,9 +421,9 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
 
         while (num != 0)
         {
-            int digito = num % 10;               // pega último dígito
-            invertido = invertido * 10 + digito; // adiciona no novo número
-            num = num / 10;                      // remove último dígito
+            int digito = num % 10;               
+            invertido = invertido * 10 + digito; 
+            num = num / 10;                      
         }
 
         num = invertido;
