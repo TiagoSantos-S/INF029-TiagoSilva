@@ -370,9 +370,6 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
     int qtdOcorrencia = 0;
     int k = 0;
 
-
-    printf("%s\n", strTexto);
-
     for(int i = 0, k = 0; i < strlen(strTexto); i++){
         if(strTexto[i] == -61){
             k = i;
@@ -381,8 +378,6 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
             } 
         }
     }
-
-    printf("%s\n", strTexto);
 
     for(int i = 0; i < strlen(strTexto); i++){
         if(strTexto[i] == strBusca[0]){
@@ -398,10 +393,12 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
                     m++;
                     posicoes[m] = i + ocorrencia;
                     m++;
+                    i = i + strlen(strBusca) - 1;
                 }
             }
         }
     }
+
     return  qtdOcorrencia; 
 }
 
@@ -494,111 +491,157 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
         1 se achou 0 se não achou
      */
 
-    int q7(char matriz[8][10], char palavra[5])
-    {
-        int linha, coluna, k;
+    
+int direita(char matriz[8][10], char palavra[5], int linha, int coluna){
+    int k;
 
-        for (linha = 0; linha < 8; linha++)
-        {
-            for (coluna = 0; coluna < 10; coluna++)
-            {
+    for (k = 0; palavra[k] != '\0'; k++) {
+        if (coluna + k >= 10)
+            return 0;
 
-                // tenta só se primeira letra bater
-                if (matriz[linha][coluna] != palavra[0])
-                    continue;
-
-                //  DIREITA →
-                for (k = 0; palavra[k] != '\0'; k++)
-                {
-                    if (coluna + k >= 10)
-                        break;
-                    if (matriz[linha][coluna + k] != palavra[k])
-                        break;
-                }
-                if (palavra[k] == '\0')
-                    return 1;
-
-                //  ESQUERDA ←
-                for (k = 0; palavra[k] != '\0'; k++)
-                {
-                    if (coluna - k < 0)
-                        break;
-                    if (matriz[linha][coluna - k] != palavra[k])
-                        break;
-                }
-                if (palavra[k] == '\0')
-                    return 1;
-
-                //  BAIXO ↓
-                for (k = 0; palavra[k] != '\0'; k++)
-                {
-                    if (linha + k >= 8)
-                        break;
-                    if (matriz[linha + k][coluna] != palavra[k])
-                        break;
-                }
-                if (palavra[k] == '\0')
-                    return 1;
-
-                //  CIMA ↑
-                for (k = 0; palavra[k] != '\0'; k++)
-                {
-                    if (linha - k < 0)
-                        break;
-                    if (matriz[linha - k][coluna] != palavra[k])
-                        break;
-                }
-                if (palavra[k] == '\0')
-                    return 1;
-
-                //  DIAGONAL ↘
-                for (k = 0; palavra[k] != '\0'; k++)
-                {
-                    if (linha + k >= 8 || coluna + k >= 10)
-                        break;
-                    if (matriz[linha + k][coluna + k] != palavra[k])
-                        break;
-                }
-                if (palavra[k] == '\0')
-                    return 1;
-
-                //  DIAGONAL ↙
-                for (k = 0; palavra[k] != '\0'; k++)
-                {
-                    if (linha + k >= 8 || coluna - k < 0)
-                        break;
-                    if (matriz[linha + k][coluna - k] != palavra[k])
-                        break;
-                }
-                if (palavra[k] == '\0')
-                    return 1;
-
-                //  DIAGONAL ↗
-                for (k = 0; palavra[k] != '\0'; k++)
-                {
-                    if (linha - k < 0 || coluna + k >= 10)
-                        break;
-                    if (matriz[linha - k][coluna + k] != palavra[k])
-                        break;
-                }
-                if (palavra[k] == '\0')
-                    return 1;
-
-                //  DIAGONAL ↖
-                for (k = 0; palavra[k] != '\0'; k++)
-                {
-                    if (linha - k < 0 || coluna - k < 0)
-                        break;
-                    if (matriz[linha - k][coluna - k] != palavra[k])
-                        break;
-                }
-                if (palavra[k] == '\0')
-                    return 1;
-            }
-        }
-
-        return 0;
+        if (matriz[linha][coluna + k] != palavra[k])
+            return 0;
     }
+
+    return 1;
+}
+
+int esquerda(char matriz[8][10], char palavra[5], int linha, int coluna){
+    int k;
+
+    for (k = 0; palavra[k] != '\0'; k++) {
+        if (coluna - k < 0)
+            return 0;
+
+        if (matriz[linha][coluna - k] != palavra[k])
+            return 0;
+    }
+
+    return 1;
+}
+
+int baixo(char matriz[8][10], char palavra[5], int linha, int coluna){
+    int k;
+
+    for (k = 0; palavra[k] != '\0'; k++) {
+        if (linha + k >= 8)
+            return 0;
+
+        if (matriz[linha + k][coluna] != palavra[k])
+            return 0;
+    }
+
+    return 1;
+}
+
+int cima(char matriz[8][10], char palavra[5], int linha, int coluna){
+    int k;
+
+    for (k = 0; palavra[k] != '\0'; k++) {
+        if (linha - k < 0)
+            return 0;
+
+        if (matriz[linha - k][coluna] != palavra[k])
+            return 0;
+    }
+
+    return 1;
+}
+
+int diagonal_inferior_direita(char matriz[8][10], char palavra[5], int linha, int coluna){
+    int k;
+
+    for (k = 0; palavra[k] != '\0'; k++) {
+        if (linha + k >= 8 || coluna + k >= 10)
+            return 0;
+
+        if (matriz[linha + k][coluna + k] != palavra[k])
+            return 0;
+    }
+
+    return 1;
+}
+
+int diagonal_inferior_esquerda(char matriz[8][10], char palavra[5], int linha, int coluna){
+    int k;
+
+    for (k = 0; palavra[k] != '\0'; k++) {
+        if (linha + k >= 8 || coluna - k < 0)
+            return 0;
+
+        if (matriz[linha + k][coluna - k] != palavra[k])
+            return 0;
+    }
+
+    return 1;
+}
+
+int diagonal_superior_direita(char matriz[8][10], char palavra[5], int linha, int coluna){
+    int k;
+
+    for (k = 0; palavra[k] != '\0'; k++) {
+        if (linha - k < 0 || coluna + k >= 10)
+            return 0;
+
+        if (matriz[linha - k][coluna + k] != palavra[k])
+            return 0;
+    }
+
+    return 1;
+}
+
+int diagonal_superior_esquerda(char matriz[8][10], char palavra[5], int linha, int coluna){
+    int k;
+
+    for (k = 0; palavra[k] != '\0'; k++) {
+        if (linha - k < 0 || coluna - k < 0)
+            return 0;
+
+        if (matriz[linha - k][coluna - k] != palavra[k])
+            return 0;
+    }
+
+    return 1;
+}
+
+int q7(char matriz[8][10], char palavra[5])
+{
+    int linha, coluna;
+
+    for (linha = 0; linha < 8; linha++) {
+        for (coluna = 0; coluna < 10; coluna++) {
+
+            if (matriz[linha][coluna] != palavra[0])
+                continue;
+
+            if (direita(matriz, palavra, linha, coluna))
+                return 1;
+
+            if (esquerda(matriz, palavra, linha, coluna))
+                return 1;
+
+            if (baixo(matriz, palavra, linha, coluna))
+                return 1;
+
+            if (cima(matriz, palavra, linha, coluna))
+                return 1;
+
+            if (diagonal_inferior_direita(matriz, palavra, linha, coluna))
+                return 1;
+
+            if (diagonal_inferior_esquerda(matriz, palavra, linha, coluna))
+                return 1;
+
+            if (diagonal_superior_direita(matriz, palavra, linha, coluna))
+                return 1;
+
+            if (diagonal_superior_esquerda(matriz, palavra, linha, coluna))
+                return 1;
+        }
+    }
+
+    return 0;
+}
 
     DataQuebrada quebraData(char data[])
     {
