@@ -83,7 +83,8 @@ int inserirNumeroEmEstrutura(int posicao, int valor)
 
 /*
 Objetivo: excluir o numero 'valor' da estrutura auxiliar no final da estrutura.
-ex: suponha os valores [3, 8, 7, 9,  ,  ]. Após excluir, a estrutura deve ficar da seguinte forma [3, 8, 7,  ,  ,  ].
+ex: suponha os valores [3, 8, 7, 9,  ,  ]. Após excluir, 
+a estrutura deve ficar da seguinte forma [3, 8, 7,  ,  ,  ].
 Obs. Esta é uma exclusão lógica
 
 Rertono (int)
@@ -92,11 +93,21 @@ Rertono (int)
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
-int excluirNumeroDoFinaldaEstrutura(int posicao)
-{
-    int retorno = SUCESSO;
-    return retorno;
-}
+ int excluirNumeroDoFinaldaEstrutura(int posicao){}
+// {   
+//     int i = 0;
+
+//     if(vetorPrincipal[posicao] == ' '){
+//         POSICAO_INVALIDA;
+//     }
+
+//     while(vetorPrincipal[i] != posicao){
+        
+//     }
+
+//     int retorno = SUCESSO;
+//     return retorno;
+// }
 
 /*
 Objetivo: excluir o numero 'valor' da estrutura auxiliar da posição 'posicao'.
