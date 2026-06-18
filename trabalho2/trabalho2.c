@@ -61,7 +61,6 @@ int inserirNumeroEmEstrutura(int posicao, int valor)
         return POSICAO_INVALIDA;
     }
     else{
-        
         if (vetorPrincipal[posicao - 1] != NULL){
             retorno = SEM_ESPACO;
 
@@ -93,21 +92,30 @@ Rertono (int)
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
- int excluirNumeroDoFinaldaEstrutura(int posicao){}
-// {   
-//     int i = 0;
+ int excluirNumeroDoFinaldaEstrutura(int posicao)
+{   
 
-//     if(vetorPrincipal[posicao] == ' '){
-//         POSICAO_INVALIDA;
-//     }
+    int *ponteiro_final;
+    int *aux;
 
-//     while(vetorPrincipal[i] != posicao){
+    if(vetorPrincipal[posicao] == ' '){
+        POSICAO_INVALIDA;
+    }
+
+    for(int i = 0; vetorPrincipal[i] != ' '; i++){
+        ponteiro_final = i;
+    }
+
+    if(*ponteiro_final == posicao){
         
-//     }
+        if(vetorPrincipal[posicao] != ' '){
+            *ponteiro_final = ' ';
+            SUCESSO;
+        }
+        
+    }
 
-//     int retorno = SUCESSO;
-//     return retorno;
-// }
+}
 
 /*
 Objetivo: excluir o numero 'valor' da estrutura auxiliar da posição 'posicao'.

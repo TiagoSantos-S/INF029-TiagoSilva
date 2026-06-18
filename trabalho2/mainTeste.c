@@ -8,7 +8,7 @@ void show_log(char *str);
 // void testeInserirSemNada();
 void testeCriarEstrutura();
 void testeInserirComEstrutura();
-// void testeExcluir();
+void testeExcluir();
 // void testeExcluirNumeroEspecifico();
 // void testeListar();
 // void testeRetornarTodosNumeros();
@@ -21,7 +21,7 @@ int main()
     // testeInserirSemNada();
     testeCriarEstrutura();
     testeInserirComEstrutura();
-    // testeExcluir();
+    testeExcluir();
     // testeExcluirNumeroEspecifico();
     // testeListar();
     // testeRetornarTodosNumeros();
