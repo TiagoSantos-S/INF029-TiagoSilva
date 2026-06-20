@@ -95,25 +95,25 @@ Rertono (int)
  int excluirNumeroDoFinaldaEstrutura(int posicao)
 {   
 
-    int *ponteiro_final;
-    int *aux;
-
-    if(vetorPrincipal[posicao] == ' '){
-        POSICAO_INVALIDA;
+    if(posicao > 10 || posicao < 1){
+        return POSICAO_INVALIDA;
     }
 
-    for(int i = 0; vetorPrincipal[i] != ' '; i++){
-        ponteiro_final = i;
+    int indice_real = posicao - 1;
+
+    if (vetorPrincipal[indice_real] == NULL) {
+        return SEM_ESTRUTURA_AUXILIAR;
     }
 
-    if(*ponteiro_final == posicao){
-        
-        if(vetorPrincipal[posicao] != ' '){
-            *ponteiro_final = ' ';
-            SUCESSO;
-        }
-        
+    if(quantidadeDeElementos[indice_real] == 0){
+        return ESTRUTURA_AUXILIAR_VAZIA;
     }
+
+    if(vetorPrincipal[indice_real] != NULL){
+        quantidadeDeElementos[indice_real]--;
+    }
+
+    return SUCESSO;
 
 }
 
@@ -132,9 +132,46 @@ Rertono (int)
 */
 int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
 {
-    int retorno = SUCESSO;
-    return retorno;
+
+    int i = 0;
+
+    if(posicao > 10 || posicao < 1){
+        return POSICAO_INVALIDA;
+    }
+
+    int indice_real = posicao - 1;
+
+    if (vetorPrincipal[indice_real] == NULL) {
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
+
+    if(quantidadeDeElementos[indice_real] == 0){
+        return ESTRUTURA_AUXILIAR_VAZIA;
+    }
+
+    int quantidade = quantidadeDeElementos[indice_real];
+    int posicao_encontrada = -1;
+
+    for(int i = 0; i < quantidade; i++) {
+        if(vetorPrincipal[indice_real][i] == valor) {
+            posicao_encontrada = i; 
+            break; 
+        }
+    }
+
+    if(posicao_encontrada == -1) {
+        return NUMERO_INEXISTENTE;
+    }
+
+    for(int i = posicao_encontrada; i < quantidade - 1; i++) {
+        vetorPrincipal[indice_real][i] = vetorPrincipal[indice_real][i + 1];
+    }
+
+    quantidadeDeElementos[indice_real]--;
+
+    return SUCESSO; 
 }
+
 
 // se posição é um valor válido {entre 1 e 10}
 int ehPosicaoValida(int posicao)
