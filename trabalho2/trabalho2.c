@@ -198,19 +198,19 @@ Retorno (int)
 int getDadosEstruturaAuxiliar(int posicao, int vetorAux[])
 {
     int valido = ehPosicaoValida(posicao);
-    int quantidade = quantidadeDeElementos[posicao - 1]; 
     
     if(valido == POSICAO_INVALIDA){
         return POSICAO_INVALIDA;
-    }else{
-        if (vetorPrincipal[posicao - 1] == NULL) {
-            return SEM_ESTRUTURA_AUXILIAR;
-        }
+    }
+    
+    int quantidade = quantidadeDeElementos[posicao - 1]; 
 
-        for(int i = 0; i < quantidade; i++){
-            vetorAux[i] = vetorPrincipal[posicao - 1][i];
-        }
+    if (vetorPrincipal[posicao - 1] == NULL) {
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
 
+    for(int i = 0; i < quantidade; i++){
+        vetorAux[i] = vetorPrincipal[posicao - 1][i];
     }
 
     return SUCESSO;
@@ -228,27 +228,28 @@ Rertono (int)
 int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[])
 {
     int valido = ehPosicaoValida(posicao);
-    int quantidade = quantidadeDeElementos[posicao - 1]; 
     int aux;
     
     if(valido == POSICAO_INVALIDA){
         return POSICAO_INVALIDA;
-    }else{
-        if (vetorPrincipal[posicao - 1] == NULL) {
-            return SEM_ESTRUTURA_AUXILIAR;
-        }
+    }
+    
+    int quantidade = quantidadeDeElementos[posicao - 1]; 
 
-        for(int i = 0; i < quantidade; i++){
-            vetorAux[i] = vetorPrincipal[posicao - 1][i];
-        }
+    if (vetorPrincipal[posicao - 1] == NULL) {
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
 
-        for(int i = 0; i < quantidade; i++){
-            for(int j = 1; j < quantidade; j++){
-                if(vetorAux[i] > vetorAux[j]){
-                    aux = vetorAux[i];
-                    vetorAux[i] = vetorAux[j];
-                    vetorAux[j] = aux;
-                }
+    for(int i = 0; i < quantidade; i++){
+        vetorAux[i] = vetorPrincipal[posicao - 1][i];
+    }
+
+    for(int i = 0; i < quantidade - 1; i++){
+        for(int j = 0; j < quantidade - 1 - i; j++){
+            if(vetorAux[j] > vetorAux[j+1]){
+                aux = vetorAux[j];
+                vetorAux[j] = vetorAux[j+1];
+                vetorAux[j+1] = aux;
             }
         }
     }
