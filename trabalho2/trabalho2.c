@@ -268,8 +268,33 @@ Rertono (int)
 int getDadosDeTodasEstruturasAuxiliares(int vetorAux[])
 {
 
-    int retorno = 0;
-    return retorno;
+    int temElementos = 0;
+    
+    for(int i = 0; i < 10; i++){
+        if (vetorPrincipal[i] != NULL && quantidadeDeElementos[i] > 0) {
+            temElementos = 1;
+            break; 
+        }
+    }
+
+    if(temElementos == 0){
+        return TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;
+    }
+
+    int y = 0;
+
+    for(int i = 0; i < 10; i++){
+        if(vetorPrincipal[i] != NULL){
+            int quantidade = quantidadeDeElementos[i];
+            for(int j = 0; j < quantidade; j++){
+                vetorAux[y] = vetorPrincipal[i][j];   
+                y++;
+            }
+        }
+    }
+
+
+    return SUCESSO;
 }
 
 /*
@@ -283,9 +308,33 @@ Rertono (int)
 int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[])
 {
 
-    int retorno = 0;
-    return retorno;
+    int retorno = getDadosDeTodasEstruturasAuxiliares(vetorAux);
+
+    if (retorno == TODAS_ESTRUTURAS_AUXILIARES_VAZIAS) {
+        return TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;
+    }
+
+    int totalElementos = 0;
+    for(int i = 0; i < 10; i++){
+        if(vetorPrincipal[i] != NULL){
+            totalElementos += quantidadeDeElementos[i];
+        }
+    }
+
+    for(int i = 0; i < totalElementos - 1; i++){
+        for(int j = 0; j < totalElementos - i - 1; j++){
+            
+            if(vetorAux[j] > vetorAux[j+1]){
+                int temp = vetorAux[j];
+                vetorAux[j] = vetorAux[j+1];
+                vetorAux[j+1] = temp;
+            }
+        }
+    }
+
+    return SUCESSO;
 }
+
 
 /*
 Objetivo: modificar o tamanho da estrutura auxiliar da posição 'posicao' para o novo tamanho 'novoTamanho' + tamanho atual
@@ -361,7 +410,11 @@ Objetivo: inicializa o programa. deve ser chamado ao inicio do programa
 
 void inicializar()
 {
+    for (int i = 0; i < 10; i++) {
+        vetorPrincipal[i] = NULL;
+    }
 }
+
 
 /*
 Objetivo: finaliza o programa. deve ser chamado ao final do programa 
@@ -369,6 +422,17 @@ para poder liberar todos os espaços de memória das estruturas auxiliares.
 
 */
 
+
 void finalizar()
 {
+    for(int i = 0; i < 10; i++){
+        if(vetorPrincipal[i] != NULL){
+
+            free(vetorPrincipal[i]);
+            
+            vetorPrincipal[i] = NULL;
+            
+            quantidadeDeElementos[i] = 0;
+        }
+    }
 }
