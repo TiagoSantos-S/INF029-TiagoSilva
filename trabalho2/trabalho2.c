@@ -349,9 +349,40 @@ Rertono (int)
 */
 int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho)
 {
+    int valido = ehPosicaoValida(posicao);
+    if (valido == POSICAO_INVALIDA) {
+        return POSICAO_INVALIDA;
+    }
 
-    int retorno = 0;
-    return retorno;
+    int indice_real = posicao - 1;
+
+    if (vetorPrincipal[indice_real] == NULL) {
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
+
+    int novoTamanhoFinal = tamanhoDaEstrutura[indice_real] + novoTamanho;
+
+    if (novoTamanhoFinal < 1) {
+        return NOVO_TAMANHO_INVALIDO;
+    }
+
+    size_t tamanhoEmBytes = (size_t)novoTamanhoFinal * sizeof(int);
+    int *novoPonteiro = (int *) realloc(vetorPrincipal[indice_real], tamanhoEmBytes);
+
+    if (novoPonteiro == NULL) {
+        return SEM_ESPACO_DE_MEMORIA;
+    }
+
+    vetorPrincipal[indice_real] = novoPonteiro;
+    tamanhoDaEstrutura[indice_real] = novoTamanhoFinal;
+
+    // Se encolheu além da quantidade já inserida, trunca logicamente:
+    // os elementos que não cabem mais são descartados (mantém os primeiros).
+    if (quantidadeDeElementos[indice_real] > novoTamanhoFinal) {
+        quantidadeDeElementos[indice_real] = novoTamanhoFinal;
+    }
+
+    return SUCESSO;
 }
 
 /*
@@ -365,10 +396,22 @@ Retorno (int)
 */
 int getQuantidadeElementosEstruturaAuxiliar(int posicao)
 {
+    int valido = ehPosicaoValida(posicao);
+    if (valido == POSICAO_INVALIDA) {
+        return POSICAO_INVALIDA;
+    }
 
-    int retorno = 0;
+    int indice_real = posicao - 1;
 
-    return retorno;
+    if (vetorPrincipal[indice_real] == NULL) {
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
+
+    if (quantidadeDeElementos[indice_real] == 0) {
+        return ESTRUTURA_AUXILIAR_VAZIA;
+    }
+
+    return quantidadeDeElementos[indice_real];
 }
 
 /*
