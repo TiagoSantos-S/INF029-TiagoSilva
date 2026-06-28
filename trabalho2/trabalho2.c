@@ -421,10 +421,58 @@ Retorno (No*)
     NULL, caso não tenha nenhum número nas listas
     No*, ponteiro para o início da lista com cabeçote
 */
+
 No *montarListaEncadeadaComCabecote()
 {
 
-    return NULL;
+    int temElementos = 0;
+    for(int i = 0; i < TAM; i++){
+        if (vetorPrincipal[i] != NULL && quantidadeDeElementos[i] > 0) {
+            temElementos = 1;
+            break; 
+        }
+    }
+
+    if (temElementos == 0) {
+        return NULL;
+    }
+
+    No *cabecote = malloc(sizeof(No));
+    if (cabecote == NULL) return NULL; // Proteção caso falte memória
+    
+    cabecote->prox = NULL;
+    cabecote->conteudo = 0; // O valor do cabeçote geralmente é ignorado
+
+    // Ponteiro auxiliar para sabermos onde colocar o próximo nó (sempre no final da lista encadeada)
+    No *ultimoNoDaLista = cabecote;
+
+    // 3. Percorrer o vetor principal e suas respectivas estruturas auxiliares
+    for(int i = 0; i < TAM; i++){
+        if(vetorPrincipal[i] != NULL){
+            int quantidade = quantidadeDeElementos[i];
+            
+            // Percorre os elementos da estrutura auxiliar atual
+            for(int j = 0; j < quantidade; j++){
+                
+                // Aloca memória para o novo nó da lista encadeada
+                No *novoNo = malloc(sizeof(No));
+                if (novoNo == NULL) return NULL; 
+
+                // Preenche o novo nó com o número guardado na estrutura
+                novoNo->conteudo = vetorPrincipal[i][j];
+                novoNo->prox = NULL;
+
+                // Liga o último nó da lista ao novo nó criado
+                ultimoNoDaLista->prox = novoNo;
+                
+                // Atualiza o ponteiro para que o novo nó seja o "último"
+                ultimoNoDaLista = novoNo;   
+            }
+        }
+    }
+
+    return cabecote;
+
 }
 
 /*
