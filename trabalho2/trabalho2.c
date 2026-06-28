@@ -481,6 +481,17 @@ Retorno void
 */
 void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[])
 {
+
+    No *atual = inicio->prox;
+    int i = 0;
+
+    while(atual != NULL)
+    {
+        vetorAux[i] = atual->conteudo;
+        atual = atual->prox;
+        i++;
+    }
+
 }
 
 /*
@@ -492,6 +503,17 @@ Retorno
 */
 void destruirListaEncadeadaComCabecote(No **inicio)
 {
+    No *atual = *inicio;
+    No *prox;
+
+    while(atual != NULL)
+    {
+        prox = atual->prox;
+        free(atual);
+        atual = prox;
+    }
+
+    *inicio = NULL;
 }
 
 /*
